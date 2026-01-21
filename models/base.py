@@ -1,6 +1,12 @@
-"""Base model interface for training and evaluation."""
+from dataclasses import dataclass
+from typing import Any, Dict
 
+@dataclass
+class TrainRequest:
+    version: str
+    config: Dict[str, Any]
 
-class ModelBase:
-    def train(self) -> None:
+class Model:
+    name: str = "base"
+    def train(self, req: TrainRequest) -> None:
         raise NotImplementedError
