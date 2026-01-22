@@ -1,0 +1,61 @@
+version: v0
+classes:
+  - plastic
+  - paper
+  - metal
+  - glass
+  - other
+splits:
+  train:
+    - images/taco_off/img_00001.jpg
+    - images/taco_off/img_00002.jpg
+    - images/taco_off/img_00003.jpg
+    - images/taco_off/img_00004.jpg
+    - images/taco_off/img_00006.jpg
+    - images/taco_off/img_00007.jpg
+    - images/taco_off/img_00008.jpg
+    - images/taco_off/img_00009.jpg
+    - images/taco_off/img_00011.jpg
+    - images/taco_off/img_00012.jpg
+    - images/taco_off/img_00013.jpg
+    - images/taco_off/img_00014.jpg
+    - images/taco_off/img_00016.jpg
+    - images/taco_off/img_00017.jpg
+    - images/taco_off/img_00018.jpg
+    - images/taco_off/img_00019.jpg
+    - images/taco_off/img_00021.jpg
+    - images/taco_off/img_00022.jpg
+    - images/taco_off/img_00023.jpg
+    - images/taco_off/img_00024.jpg
+    - images/taco_off/img_00026.jpg
+    - images/taco_off/img_00027.jpg
+    - images/taco_off/img_00028.jpg
+    - images/taco_off/img_00029.jpg
+    - images/taco_off/img_00031.jpg
+    - images/taco_off/img_00032.jpg
+    - images/taco_off/img_00033.jpg
+    - images/taco_off/img_00034.jpg
+    - images/taco_off/img_00036.jpg
+    - images/taco_off/img_00037.jpg
+    - images/taco_off/img_00038.jpg
+    - images/taco_off/img_00039.jpg
+    - images/taco_off/img_00041.jpg
+    - images/taco_off/img_00042.jpg
+    - images/taco_off/img_00043.jpg
+    - images/taco_off/img_00044.jpg
+    - images/taco_off/img_00046.jpg
+    - images/taco_off/img_00047.jpg
+    - images/taco_off/img_00048.jpg
+    - images/taco_off/img_00049.jpg
+  val:
+    - images/taco_off/img_00000.jpg
+    - images/taco_off/img_00005.jpg
+    - images/taco_off/img_00010.jpg
+    - images/taco_off/img_00015.jpg
+    - images/taco_off/img_00020.jpg
+    - images/taco_off/img_00025.jpg
+    - images/taco_off/img_00030.jpg
+    - images/taco_off/img_00035.jpg
+    - images/taco_off/img_00040.jpg
+    - images/taco_off/img_00045.jpg
+    - images/taco_off/img_00050.jpg
