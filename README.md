@@ -101,7 +101,7 @@ Generation is outsourced for now; we integrate results through the same filters 
 We keep **one true pool** of data and build dataset versions reproducibly.
 
 - `data/pool/`    - single source of truth (images + annotations), NOT in git
-- `data/manifests/` - version definitions (YAML), in git
+- `data/manifests/` - version definitions (YAML, uses `splits`), in git
 - `data/versions/`  - materialized artifacts per version (split lists, data.yaml, optional symlinks), NOT in git
 
 Training code is model-agnostic: one entrypoint calls model wrappers.
@@ -163,7 +163,7 @@ Metrics we track:
 Notes for agents (Codex/Claude Code)
 
 Do NOT:
-- duplicate dataset files per version (use manifests + lists/symlinks)
+- duplicate dataset files per version (use manifests + splits/symlinks)
 - mix synthetic/catalog into validation/test
 - allow background leakage across splits
 

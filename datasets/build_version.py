@@ -51,20 +51,21 @@ def validate_manifest(m: Dict[str, Any]) -> None:
     if "classes" not in m or not isinstance(m["classes"], list) or not m["classes"]:
         raise ValueError("Manifest must contain non-empty list field: classes")
 
-    if "lists" not in m:
-        if "splits" in m:
-            m["lists"] = m["splits"]
-        else:
-            raise ValueError("Manifest must contain dict field: lists")
-    if not isinstance(m["lists"], dict):
-        raise ValueError("Manifest field lists must be a dict")
+    if "splits" in m:
+        m["lists"] = m["splits"]
+    elif "lists" in m:
+        m["splits"] = m["lists"]
+    else:
+        raise ValueError("Manifest must contain dict field: splits")
+    if not isinstance(m["splits"], dict):
+        raise ValueError("Manifest field splits must be a dict")
 
     for split in ("train", "val", "test"):
-        if split not in m["lists"]:
+        if split not in m["splits"]:
             # allow missing splits -> treat as empty
-            m["lists"][split] = []
-        if not isinstance(m["lists"][split], list):
-            raise ValueError(f"Manifest lists.{split} must be a list")
+            m["splits"][split] = []
+        if not isinstance(m["splits"][split], list):
+            raise ValueError(f"Manifest splits.{split} must be a list")
 
 
 def build_yolo_data_yaml(
@@ -89,7 +90,7 @@ def build_yolo_data_yaml(
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Build dataset version artifacts from a manifest (v0: explicit lists).")
+    ap = argparse.ArgumentParser(description="Build dataset version artifacts from a manifest (v0: explicit splits).")
     ap.add_argument("--version", type=str, required=False, help="Dataset version key, e.g. v0")
     ap.add_argument("--manifest", type=str, required=False, help="Path to manifest YAML. Overrides --version.")
     ap.add_argument("--pool-root", type=str, default="data/pool", help="Base directory for relative paths.")
@@ -120,10 +121,10 @@ def main() -> None:
     version = m["version"]
     classes: List[str] = m["classes"]
 
-    lists = m["lists"]
-    train_list = resolve_paths(lists.get("train", []), root, pool_root)
-    val_list = resolve_paths(lists.get("val", []), root, pool_root)
-    test_list = resolve_paths(lists.get("test", []), root, pool_root)
+    splits = m["splits"]
+    train_list = resolve_paths(splits.get("train", []), root, pool_root)
+    val_list = resolve_paths(splits.get("val", []), root, pool_root)
+    test_list = resolve_paths(splits.get("test", []), root, pool_root)
 
     if not args.allow_missing:
         missing = [p for p in (train_list + val_list + test_list) if not p.exists()]
