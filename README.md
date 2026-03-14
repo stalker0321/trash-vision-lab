@@ -82,6 +82,8 @@ Example ladder:
 
 **Validation/test:** always real-only, with strict hold-out (unseen backgrounds).
 
+**Local smoke dataset (not in git):** `sec_chance_v0` is a quick local manifest built from `sec_chance_img/` for smoke runs. The folder is ignored and can be replaced freely.
+
 ---
 
 ## Synthetic data policy (short)
