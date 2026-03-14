@@ -1,0 +1,5 @@
+rtdetr:
+  weights: rtdetrv2-m.pt
+  imgsz: 640
+  batch: 8
+  epochs: 1
