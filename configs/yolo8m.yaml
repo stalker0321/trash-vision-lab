@@ -1,5 +1,5 @@
 yolo:
   weights: yolov8m.pt
   imgsz: 640
-  batch: 8
+  batch: 4
   epochs: 1

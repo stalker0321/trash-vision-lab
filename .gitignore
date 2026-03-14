@@ -5,3 +5,7 @@ __pycache__/
 .venv/
 .idea/
 notes/_local_log.md
+sec_chance_img/
+runs/
+*.pt
+*.cache
