@@ -129,6 +129,18 @@ def main():
             if terminal:
                 count = verify_results(artifacts)
                 summary.update(status='results_verified', verified_files=count)
+                verified_at = summary.setdefault('results_verified_unix', time.time())
+                hold = min(300, max(0, float(config.get('release_transfer_hold_seconds', 0))))
+                if status['status'] == 'complete' and hold:
+                    acknowledgment = artifacts / 'control/release-transfer-complete.json'
+                    run = json.loads((artifacts / 'runs/d3/yolo26m_d3_s42_wd001/run.json').read_text())
+                    ack = json.loads(acknowledgment.read_text()) if acknowledgment.exists() else {}
+                    received = ack.get('status') == 'ready' and ack.get('medium_sha256') == run['best_sha256']
+                    summary['release_transfer_received'] = received
+                    if not received and not timed_out and not limit and time.time() - verified_at < hold:
+                        record()
+                        time.sleep(15)
+                        continue
                 record()
                 result = api(f'/instances/{instance_id}/', key, 'DELETE', {})
                 if not result.get('success'):
