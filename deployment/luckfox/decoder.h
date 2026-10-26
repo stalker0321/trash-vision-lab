@@ -14,8 +14,13 @@
 struct Detection {
     int cls;
     float score;
+    float material_margin;
     float x1, y1, x2, y2;
 };
+
+static inline bool unknown_material(const Detection &d, float threshold) {
+    return threshold > 0 && d.material_margin < threshold;
+}
 
 static inline float box_iou(const Detection &a, const Detection &b) {
     float ix1 = std::max(a.x1, b.x1), iy1 = std::max(a.y1, b.y1);
@@ -32,10 +37,11 @@ static inline int decode_output(const int8_t *out, std::vector<Detection> &dets,
     if (!out || !std::isfinite(output_scale) || output_scale <= 0 || output_zero_point < -128 || output_zero_point > 127) return -1;
     for (int a = 0; a < 2100; a++) {
         int best = -1;
-        float bs = 0;
+        float bs = -INFINITY, second = -INFINITY;
         for (int c = 0; c < NCLASS; c++) {
             float s = ((float)out[(4 + c) * 2100 + a] - output_zero_point) * output_scale;
-            if (s > bs) { bs = s; best = c; }
+            if (s > bs) { second = bs; bs = s; best = c; }
+            else if (s > second) second = s;
         }
         if (bs < CONF_THRES) continue;
         float cx = ((float)out[0 * 2100 + a] - output_zero_point) * output_scale * IMGSZ;
@@ -45,6 +51,7 @@ static inline int decode_output(const int8_t *out, std::vector<Detection> &dets,
         Detection d;
         d.cls = best;
         d.score = bs;
+        d.material_margin = bs - second;
         d.x1 = cx - bw * 0.5f;
         d.y1 = cy - bh * 0.5f;
         d.x2 = cx + bw * 0.5f;

@@ -119,6 +119,7 @@ is separate from RKNN export dependencies.
 - [Project history and recovered evidence](docs/project-history.md)
 - [Original TACO, class mapping and known limitations](docs/taco-provenance.md)
 - [D3 dataset and training protocol](docs/d3.md)
+- [Experimental unknown-material display and measured trade-off](docs/material-abstention.md)
 - [Frozen D3 manifest](manifests/d3.json)
 - [Training runner](runners/train_d3.py) and
   [common-holdout evaluation](runners/evaluate_d3.py)

@@ -69,6 +69,15 @@ This replaces the installed detector binary/model and adds `S99fieldapp`.
 `field-install.sh disable` removes its autostart and restores the stock camera
 application. Use `ANDROID_SERIAL` when multiple ADB devices are connected.
 
+## Optional unknown-material display
+
+`TVL_MATERIAL_MARGIN` enables an experimental naming policy when the top two
+class scores are close. It defaults to zero (disabled), preserves all boxes,
+and shows the best material as a suggestion. See the [fixed abstention
+experiment and usage](material-abstention.md) for evidence and limitations.
+The additional mode has host tests and cross-compiles; it has no fresh board
+validation and is not used to claim an accuracy or speed improvement.
+
 ## Recovered measurements
 
 These measurements belong to the existing D2 export:

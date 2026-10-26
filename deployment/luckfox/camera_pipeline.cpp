@@ -30,6 +30,13 @@
 #include "decoder.h"
 
 static const char *CLASS_NAMES[NCLASS] = {"plastic", "paper", "metal", "glass"};
+static float material_threshold = 0.0f;  // opt-in naming policy; boxes/NMS are unchanged
+
+static std::string material_label(const Detection &d) {
+    if (unknown_material(d, material_threshold))
+        return std::string("unknown (") + CLASS_NAMES[d.cls] + ")";
+    return CLASS_NAMES[d.cls];
+}
 
 static double now_ms() {
     struct timespec ts;
@@ -83,14 +90,15 @@ static void draw_detections(cv::Mat &img, const std::vector<Detection> &dets, fl
         int y1 = (int)((d.y1 - pad_y) / scale);
         int x2 = (int)((d.x2 - pad_x) / scale);
         int y2 = (int)((d.y2 - pad_y) / scale);
-        cv::rectangle(img, cv::Point(x1, y1), cv::Point(x2, y2), CLASS_COLORS[d.cls], 2);
+        cv::Scalar color = unknown_material(d, material_threshold) ? cv::Scalar(160, 160, 160) : CLASS_COLORS[d.cls];
+        cv::rectangle(img, cv::Point(x1, y1), cv::Point(x2, y2), color, 2);
         char label[64];
-        snprintf(label, sizeof(label), "%s %.2f", CLASS_NAMES[d.cls], d.score);
+        snprintf(label, sizeof(label), "%s %.2f", material_label(d).c_str(), d.score);
         int baseline = 0;
         cv::Size ts = cv::getTextSize(label, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseline);
         int ty = y1 - 4 < ts.height ? y1 + ts.height + 2 : y1 - 4;
         cv::rectangle(img, cv::Point(x1, ty - ts.height - 2),
-                      cv::Point(x1 + ts.width + 4, ty + baseline), CLASS_COLORS[d.cls], -1);
+                      cv::Point(x1 + ts.width + 4, ty + baseline), color, -1);
         cv::putText(img, label, cv::Point(x1 + 2, ty), cv::FONT_HERSHEY_SIMPLEX, 0.5,
                     cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
     }
@@ -174,6 +182,19 @@ int main(int argc, char **argv) {
                 argv[0], argv[0], argv[0], argv[0]);
         return 2;
     }
+    const char *setting = getenv("TVL_MATERIAL_MARGIN");
+    if (setting) {
+        char *end = NULL;
+        errno = 0;
+        material_threshold = strtof(setting, &end);
+        if (end == setting || *end || errno || !std::isfinite(material_threshold) ||
+            material_threshold < 0 || material_threshold > 1) {
+            fprintf(stderr, "TVL_MATERIAL_MARGIN must be a number from 0 to 1 (0 disables abstention)\n");
+            return 2;
+        }
+    }
+    if (material_threshold > 0)
+        printf("experimental unknown-material display: margin < %.4f; detected boxes are unchanged\n", material_threshold);
     const char *model_path = argv[1];
     bool shots_mode = argc > 2 && strcmp(argv[2], "--shots") == 0;
     bool button_mode = argc > 2 && strcmp(argv[2], "--button") == 0;
@@ -300,7 +321,13 @@ int main(int argc, char **argv) {
         mkdir(field_dir, 0755);
         std::string photos = std::string(field_dir) + "/photos";
         mkdir(photos.c_str(), 0755);
-        FILE *csv = fopen((std::string(field_dir) + "/detections.csv").c_str(), "a");
+        const char *csv_name = material_threshold > 0 ? "/detections-material.csv" : "/detections.csv";
+        FILE *csv = fopen((std::string(field_dir) + csv_name).c_str(), "a");
+        if (csv && material_threshold > 0) {
+            struct stat info;
+            if (fstat(fileno(csv), &info) == 0 && info.st_size == 0)
+                fprintf(csv, "uptime_ms,path,class,suggested_class,confidence,margin,threshold,x1,y1,x2,y2\n");
+        }
         led_release_trigger();
         led_set(0);
         int evfd = open("/dev/input/event0", O_RDONLY | O_NONBLOCK);
@@ -336,7 +363,7 @@ int main(int argc, char **argv) {
             if (ok) fsync_path(path);
             printf("%s/%s_%04d %s dets=%d", dir.c_str(), prefix.c_str(), idx,
                    ok ? "saved" : "SAVE_FAILED", n);
-            for (const auto &dd : dets) printf(" [%s %.2f]", CLASS_NAMES[dd.cls], dd.score);
+            for (const auto &dd : dets) printf(" [%s %.2f]", material_label(dd).c_str(), dd.score);
             printf("\n");
             fflush(stdout);
             if (csv) {
@@ -344,8 +371,15 @@ int main(int argc, char **argv) {
                 for (const auto &dd : dets) {
                     float fx1 = (dd.x1 - left) / scale, fy1 = (dd.y1 - top) / scale;
                     float fx2 = (dd.x2 - left) / scale, fy2 = (dd.y2 - top) / scale;
-                    fprintf(csv, "%.0f,%s/%s_%04d,%s,%.4f,%.1f,%.1f,%.1f,%.1f\n", t, dir.c_str(),
-                            prefix.c_str(), idx, CLASS_NAMES[dd.cls], dd.score, fx1, fy1, fx2, fy2);
+                    if (material_threshold > 0) {
+                        const char *label = unknown_material(dd, material_threshold) ? "unknown" : CLASS_NAMES[dd.cls];
+                        fprintf(csv, "%.0f,%s/%s_%04d,%s,%s,%.4f,%.6f,%.6f,%.1f,%.1f,%.1f,%.1f\n",
+                                t, dir.c_str(), prefix.c_str(), idx, label, CLASS_NAMES[dd.cls], dd.score,
+                                dd.material_margin, material_threshold, fx1, fy1, fx2, fy2);
+                    } else {
+                        fprintf(csv, "%.0f,%s/%s_%04d,%s,%.4f,%.1f,%.1f,%.1f,%.1f\n", t, dir.c_str(),
+                                prefix.c_str(), idx, CLASS_NAMES[dd.cls], dd.score, fx1, fy1, fx2, fy2);
+                    }
                 }
                 fflush(csv);
             }
@@ -518,7 +552,7 @@ int main(int argc, char **argv) {
                 bool ok = save_image(path, annotated);
                 printf("press %02d key=%d %s dets=%d", idx, ev.code, ok ? "saved" : "SAVE_FAILED",
                        n);
-                for (const auto &d : dets) printf(" [%s %.2f]", CLASS_NAMES[d.cls], d.score);
+                for (const auto &d : dets) printf(" [%s %.2f]", material_label(d).c_str(), d.score);
                 printf("\n");
                 fflush(stdout);
                 idx++;
@@ -566,7 +600,7 @@ int main(int argc, char **argv) {
             snprintf(path, sizeof(path), "%s/shot_%03d.jpg", shots_dir, shot);
             bool ok = save_image(path, annotated);
             printf("shot %02d %s dets=%d", shot, ok ? "saved" : "SAVE_FAILED", n);
-            for (const auto &d : dets) printf(" [%s %.2f]", CLASS_NAMES[d.cls], d.score);
+            for (const auto &d : dets) printf(" [%s %.2f]", material_label(d).c_str(), d.score);
             printf("\n");
             fflush(stdout);
             shot++;
@@ -631,7 +665,7 @@ int main(int argc, char **argv) {
     for (const auto &d : dets) {
         float sx = 1.0f, sy = 1.0f;
         (void)sx; (void)sy;
-        printf("  %-7s %.3f\n", CLASS_NAMES[d.cls], d.score);
+        printf("  %-7s %.3f\n", material_label(d).c_str(), d.score);
     }
     if (measured) {
         printf("frames=%d avg_dets=%.2f\n", measured, (double)total_dets / measured);

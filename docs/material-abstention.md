@@ -77,5 +77,20 @@ a retrospectively reviewed holdout and no uncertainty estimate.
 Only four known materials have ground truth. Novel materials and open-set
 objects were not evaluated. INT8 score rounding may also change threshold
 behavior, so FP32 results must not be presented as a board measurement.
-The recovered camera runtime keeps its current material display; this
-experiment has not enabled an unvalidated default on the Pico.
+The camera runtime has an optional material display, disabled by default:
+
+```sh
+TVL_MATERIAL_MARGIN=0.20 ./camera_pipeline model.rknn --field /userdata/field
+```
+
+A rejected material is shown in gray as `unknown (plastic)` (or the other
+suggested class). Boxes and class-wise NMS remain unchanged. Field mode writes
+`detections-material.csv`, recording the displayed class, suggested class,
+confidence, margin and threshold; the original `detections.csv` format is used
+when the option is off. Set the value to `0` or leave it unset to disable it.
+
+The value 0.20 is the D2 exploratory example above, not a validated D3 INT8
+operating point. On the 32 stored D2 INT8 tensors, it defers 6 of 52 names while
+preserving every detection. Quantizer, near-tie and disabled-mode host tests
+pass, and the complete runtime cross-compiles. No fresh hardware test has
+been performed and the installed board application has not been changed.

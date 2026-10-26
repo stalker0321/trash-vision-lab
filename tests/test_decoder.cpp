@@ -26,6 +26,17 @@ int main() {
         assert(std::abs(detections[0].score - .8f) < 1e-5f);
         assert(std::abs(detections[0].x1 - 120.f) < 1e-4f);
         assert(std::abs(detections[0].x2 - 200.f) < 1e-4f);
+        assert(!unknown_material(detections[0], 0));
+        // A confident top class can still have a close runner-up.
+        buffer[(4 + 3) * 2100] = (int8_t)std::lround(.72f / scale + zp);
+        assert(decode_output(buffer.data(), detections, scale, zp) == 2);
+        assert(detections[0].cls == 0 && std::abs(detections[0].material_margin - .08f) < 1e-5f);
+        assert(unknown_material(detections[0], .1f) && !unknown_material(detections[0], 0));
+        // A tied class score is deferred when enabled; disabling keeps the original first class.
+        buffer[(4 + 3) * 2100] = buffer[(4 + 0) * 2100];
+        assert(decode_output(buffer.data(), detections, scale, zp) == 2);
+        assert(detections[0].cls == 0 && detections[0].material_margin == 0);
+        assert(unknown_material(detections[0], .01f) && !unknown_material(detections[0], 0));
         assert(decode_output(buffer.data(), detections, 0, zp) == -1 && detections.empty());
         assert(decode_output(buffer.data(), detections, std::numeric_limits<float>::quiet_NaN(), zp) == -1);
     }

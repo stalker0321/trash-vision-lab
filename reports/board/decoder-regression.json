@@ -175,5 +175,11 @@
       "tensor_sha256": "3c3873cc27bc5e02b5cb0e17f81ab418118305b052ba608bcf7181a5eafc6990",
       "detections": 1
     }
-  ]
+  ],
+  "abstention_replay": {
+    "threshold": 0.2,
+    "unknown_material_detections": 6,
+    "total_detections": 52,
+    "note": "Naming-only replay of stored D2 INT8 outputs. No ground-truth accuracy claim and no new hardware run."
+  }
 }
