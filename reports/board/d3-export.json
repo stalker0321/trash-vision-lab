@@ -1,0 +1,69 @@
+{
+  "weights_sha256": "84c56d5a4d5ae10f36a921515f39b388af7d78313e4b6ced2d86425a42e5cbe5",
+  "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+  "target": "rv1103",
+  "imgsz": 320,
+  "quantize": 8,
+  "preprocessing": "OpenCV BGR decode, LetterBox320/114, lossless PNG copies; RKNN RGB / 255",
+  "coordinate_contract": "normalized cxcywh + four sigmoid class scores, 1x8x2100",
+  "hardware_validation": "pending: compiled artifact is not a board accuracy/performance result",
+  "onnx_parity": [
+    {
+      "image": "0000.png",
+      "maximum_absolute_error": 3.844499588012695e-06,
+      "mean_absolute_error": 5.9546589881165346e-08
+    },
+    {
+      "image": "0001.png",
+      "maximum_absolute_error": 5.304813385009766e-06,
+      "mean_absolute_error": 6.52480167673275e-08
+    },
+    {
+      "image": "0002.png",
+      "maximum_absolute_error": 1.996755599975586e-06,
+      "mean_absolute_error": 6.532001606274207e-08
+    },
+    {
+      "image": "0003.png",
+      "maximum_absolute_error": 2.4437904357910156e-06,
+      "mean_absolute_error": 6.047540068720991e-08
+    },
+    {
+      "image": "0004.png",
+      "maximum_absolute_error": 2.86102294921875e-06,
+      "mean_absolute_error": 6.260511753453102e-08
+    },
+    {
+      "image": "0005.png",
+      "maximum_absolute_error": 3.516674041748047e-06,
+      "mean_absolute_error": 6.616982517471115e-08
+    },
+    {
+      "image": "0006.png",
+      "maximum_absolute_error": 1.6689300537109375e-06,
+      "mean_absolute_error": 5.977857853167734e-08
+    },
+    {
+      "image": "0007.png",
+      "maximum_absolute_error": 4.678964614868164e-06,
+      "mean_absolute_error": 6.764579296714146e-08
+    }
+  ],
+  "onnx_sha256": "ceb774ce13be9fc8e284c9e910f45b73faf35160be8747d76a7745824077ed3c",
+  "status": "complete",
+  "rknn_sha256": "9248931f1dd1ada2c73c31e8de1d42db2b97ac39320603f21c2ca39c77a59e8d",
+  "environment": {
+    "torch": "2.4.0+cpu",
+    "torchvision": "0.19.0+cpu",
+    "ultralytics": "8.4.143",
+    "rknn-toolkit2": "2.3.2",
+    "numpy": "1.26.4",
+    "onnx": "1.18.0",
+    "onnxruntime": "1.22.1",
+    "onnxslim": "0.1.96",
+    "opencv-python": "4.11.0.86"
+  },
+  "python": "3.12.14",
+  "calibration_images": 256,
+  "note": "Completed D3 Nano, seed 42; compiled artifact and FP32 graph parity only. Hardware INT8 accuracy and performance remain untested."
+}

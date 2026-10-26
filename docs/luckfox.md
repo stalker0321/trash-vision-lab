@@ -139,6 +139,13 @@ it does not establish INT8 accuracy or board performance. The new letterboxed
 calibration copies also differ from the old export preparation, so the old
 board measurements do not describe this newly compiled artifact.
 
+D3 Nano has also completed this export. Its [export receipt](../reports/board/d3-export.json)
+records the checkpoint, ONNX and RKNN hashes and pinned environment. The maximum
+absolute ONNX/PyTorch error over eight inputs was 0.00000530. RKNN compilation
+succeeded with all 256 real training calibration copies. This provides a D3
+artifact ready for board testing; it does not supersede the board-tested D2
+artifact or establish D3 INT8 accuracy.
+
 The [official Ultralytics RKNN integration](https://docs.ultralytics.com/integrations/rockchip-rknn)
 and [Rockchip Toolkit2](https://github.com/airockchip/rknn-toolkit2) describe the
 conversion/runtime boundary. Fresh D3 board validation remains a separate step.
