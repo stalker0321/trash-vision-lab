@@ -72,6 +72,13 @@ def main():
         writer = csv.DictWriter(stream, fieldnames=fields)
         writer.writeheader()
         writer.writerows({k: r[k] for k in fields} for r in rows)
+    with (args.output / 'per-class.csv').open('w', newline='') as stream:
+        writer = csv.DictWriter(stream, fieldnames=['name', 'split', 'class', 'ap50', 'ap50_95'])
+        writer.writeheader()
+        for row in rows:
+            for name, metrics in row['per_class'].items():
+                writer.writerow(dict(name=row['name'], split=row['split'], **{'class': name},
+                    ap50=metrics['ap50'] if metrics else '', ap50_95=metrics['ap50_95'] if metrics else ''))
     lines = ['# D2 and D3 on the same reviewed holdout', '',
              'Fixed seed42 checkpoints, evaluated against the frozen D3 labels.', '',
              'All AP values below are percentages.', '']
@@ -81,6 +88,15 @@ def main():
             if row['split'] == split:
                 lines.append(f'| {row["name"]}, {row["imgsz"]} px | {100*row["ap50"]:.2f} | {100*row["ap50_95"]:.2f} |')
         lines.append('')
+    lines += ['## Test AP50–95 by material', '',
+              '| Configuration | ' + ' | '.join(manifest['names']) + ' |',
+              '| --- | ' + ' | '.join(['---:'] * len(manifest['names'])) + ' |']
+    for row in rows:
+        if row['split'] == 'test':
+            values = [f'{100*row["per_class"][name]["ap50_95"]:.2f}' if row['per_class'][name] else '—'
+                      for name in manifest['names']]
+            lines.append('| ' + row['name'] + ' | ' + ' | '.join(values) + ' |')
+    lines += ['', 'All per-class AP values are retained in [per-class.csv](per-class.csv).', '']
     lines += ['## Interpretation limits', ''] + ['- ' + value for value in result['caveats']]
     (args.output / 'README.md').write_text('\n'.join(lines) + '\n')
     if args.plot:
