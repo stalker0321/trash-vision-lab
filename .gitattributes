@@ -1,0 +1,4 @@
+# Keep source files portable and preserve the exact bytes of hashed evidence.
+* text=auto eol=lf
+reports/** -text
+*.png -text
