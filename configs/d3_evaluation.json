@@ -1,0 +1,29 @@
+{
+  "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+  "jobs": [
+    {
+      "name": "nano_d2",
+      "imgsz": 320,
+      "weights": "weights/evaluation/nano_d2.pt",
+      "sha256": "c38dd733b3ed585b99e325f8e57baf7bb1df3edcb544a66e511026b4ae0459e8"
+    },
+    {
+      "name": "nano_d3",
+      "imgsz": 320,
+      "weights": "runs/d3/yolo26n_d3_s42_wd001/weights/best.pt",
+      "run_metadata": "runs/d3/yolo26n_d3_s42_wd001/run.json"
+    },
+    {
+      "name": "medium_d2",
+      "imgsz": 640,
+      "weights": "weights/evaluation/medium_d2.pt",
+      "sha256": "fd56d240009563c33e15571db1b0270e32aee13fde68638bbe1c7abeba04b79c"
+    },
+    {
+      "name": "medium_d3",
+      "imgsz": 640,
+      "weights": "weights/evaluation/medium_d3.pt",
+      "run_metadata": "weights/evaluation/medium_d3_run.json"
+    }
+  ]
+}
