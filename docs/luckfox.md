@@ -85,7 +85,8 @@ These measurements belong to the existing D2 export:
 The 32-image PyTorch/RKNN comparison reported 50 matches from 51 PyTorch
 and 52 RKNN detections, mean matched IoU 0.812 and mean absolute confidence
 difference 0.028. These are output-agreement measurements, not ground-truth AP.
-The short camera run also does not establish sustained throughput.
+The short camera run used an empty scene with no detections. It does not
+establish sustained throughput or postprocessing cost in crowded scenes.
 
 The original source hashes are retained in `deployment/luckfox/provenance.json`.
 The current camera runtime adds model-provided quantization and contract checks;

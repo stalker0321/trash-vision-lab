@@ -82,7 +82,8 @@ Important interpretation limits:
 The existing D2 Nano export runs on Luckfox Pico Mini A / RV1103 using RKNN
 INT8 and the zero-copy runtime API. A short 30-frame camera benchmark measured
 **66.56 ms per frame (~15 FPS)** for the complete pipeline and about 12.2 MB
-peak process RSS. This is a short measurement, not a sustained throughput claim.
+peak process RSS. The camera saw an empty scene with no detections; this is
+a short measurement, not sustained throughput or crowded-scene postprocessing.
 
 On 32 validation images, the PyTorch/RKNN comparison matched 50 detections
 from 51 PyTorch and 52 RKNN outputs; mean matched-box IoU was 0.812 and mean
