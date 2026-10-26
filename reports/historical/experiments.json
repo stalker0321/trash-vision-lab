@@ -1,0 +1,171 @@
+{
+  "metric_policy": "Validation only; best epoch selected by maximum CSV mAP50-95. Both mAP columns use that same epoch. Final best.pt reload metrics are separately stored as rounded log values.",
+  "runs": [
+    {
+      "name": "yolo26m_d0_s123_wd001",
+      "model": "yolo26m",
+      "dataset": "d0",
+      "seed": 123,
+      "imgsz": 640,
+      "weight_decay": 0.001,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26m_d0_s123_wd001.csv",
+      "curve_sha256": "fff35fec217e79adbae5575f1303515a9789d7b0322fa61baad0bcb618204da9"
+    },
+    {
+      "name": "yolo26m_d0_s42_wd001",
+      "model": "yolo26m",
+      "dataset": "d0",
+      "seed": 42,
+      "imgsz": 640,
+      "weight_decay": 0.001,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26m_d0_s42_wd001.csv",
+      "curve_sha256": "778995bf0f063a052713168bc8bd7331947931cd84628996ff2f68e46ef1ebd9"
+    },
+    {
+      "name": "yolo26m_d1_s123_wd001",
+      "model": "yolo26m",
+      "dataset": "d1",
+      "seed": 123,
+      "imgsz": 640,
+      "weight_decay": 0.001,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26m_d1_s123_wd001.csv",
+      "curve_sha256": "ad7993f6c45ecf462c3b7b810bfb82a2d256277f93467c2737e0282eaac00134"
+    },
+    {
+      "name": "yolo26m_d1_s42_wd001",
+      "model": "yolo26m",
+      "dataset": "d1",
+      "seed": 42,
+      "imgsz": 640,
+      "weight_decay": 0.001,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26m_d1_s42_wd001.csv",
+      "curve_sha256": "a176765aa2d54c007c8dadfe8887a10338ebd7b0156a536d17c2d5f49b608b2d"
+    },
+    {
+      "name": "yolo26m_d2_s123_wd001",
+      "model": "yolo26m",
+      "dataset": "d2",
+      "seed": 123,
+      "imgsz": 640,
+      "weight_decay": 0.001,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26m_d2_s123_wd001.csv",
+      "curve_sha256": "4cb1114f376fd860df2874a865e6767b73e3f2380c90d4f1621af1cf7a76eab7"
+    },
+    {
+      "name": "yolo26m_d2_s42_wd001",
+      "model": "yolo26m",
+      "dataset": "d2",
+      "seed": 42,
+      "imgsz": 640,
+      "weight_decay": 0.001,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26m_d2_s42_wd001.csv",
+      "curve_sha256": "59501bb7856491edc68848e936d4bcac228c0873f6d322063b2df605077d7be7"
+    },
+    {
+      "name": "yolo26n_d0_s123",
+      "model": "yolo26n",
+      "dataset": "d0",
+      "seed": 123,
+      "imgsz": 320,
+      "weight_decay": 0.0005,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26n_d0_s123.csv",
+      "curve_sha256": "eeaefbbed7f46f24e9c8778f0b7ac16b62ad4089550d8c244d22df616baef9fe"
+    },
+    {
+      "name": "yolo26n_d1_s123",
+      "model": "yolo26n",
+      "dataset": "d1",
+      "seed": 123,
+      "imgsz": 320,
+      "weight_decay": 0.0005,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26n_d1_s123.csv",
+      "curve_sha256": "2dcc2fb2960452e436adc783e7d2d25fb4b9d8e3d699bf52d2eb0a6ae2d7af0e"
+    },
+    {
+      "name": "yolo26n_d2_s123",
+      "model": "yolo26n",
+      "dataset": "d2",
+      "seed": 123,
+      "imgsz": 320,
+      "weight_decay": 0.0005,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26n_d2_s123.csv",
+      "curve_sha256": "11f2142b25273c750c23a86dacae639d803dfa1bcb2a1beab0cde07462eb1362"
+    },
+    {
+      "name": "yolo26n_d2_s42_wd001",
+      "model": "yolo26n",
+      "dataset": "d2",
+      "seed": 42,
+      "imgsz": 320,
+      "weight_decay": 0.001,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "selected_nano_wd001",
+      "curve": "curves/yolo26n_d2_s42_wd001.csv",
+      "curve_sha256": "8a05a8559872944dfa277298af214840ae0f7befddc3ac6ddc9f790a99bc0d77"
+    },
+    {
+      "name": "yolo26n_d0_s42",
+      "model": "yolo26n",
+      "dataset": "d0",
+      "seed": 42,
+      "imgsz": 320,
+      "weight_decay": 0.0005,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26n_d0_s42.csv",
+      "curve_sha256": "7d7eb335c1fa59cb69071ad4992a80cbf217581b331b9539b00d4ee8fcd6c083"
+    },
+    {
+      "name": "yolo26n_d1_s42",
+      "model": "yolo26n",
+      "dataset": "d1",
+      "seed": 42,
+      "imgsz": 320,
+      "weight_decay": 0.0005,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26n_d1_s42.csv",
+      "curve_sha256": "b8b497471223363143d1227a974b31b7c9d645a7f1c9cc14a9359e66df722880"
+    },
+    {
+      "name": "yolo26n_d2_s42",
+      "model": "yolo26n",
+      "dataset": "d2",
+      "seed": 42,
+      "imgsz": 320,
+      "weight_decay": 0.0005,
+      "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+      "series": "main",
+      "curve": "curves/yolo26n_d2_s42.csv",
+      "curve_sha256": "6d206d496a9654a2140a5867358680ec7c3bd059c05a383a29f9a4670c8ffe09"
+    }
+  ],
+  "caveats": [
+    "D0/D1/D2 compare complete data recipes, not isolated annotation cleanup effects.",
+    "Shared curated validation excludes some visible small or ambiguous objects; the result applies to this inclusion policy.",
+    "Two seeds describe limited repeatability, not statistical significance.",
+    "N uses 320 input and WD=0.0005; M uses 640 and WD=0.001. N/M comparison changes model and recipe.",
+    "Nano seed42 baseline ran on Windows/4060; seed123 and extras ran on Linux/3060. The WD experiment is one run with a platform change.",
+    "Fixed epochs imply different image exposures for datasets of different sizes.",
+    "Training-log speed is not a controlled deployment benchmark.",
+    "These are historical validation scores, not reviewed D3 test scores."
+  ]
+}
