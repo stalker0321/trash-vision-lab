@@ -101,10 +101,19 @@ def main():
             if timed_out or limit:
                 command += f'touch {remote_root}/control/stop-request; '
                 stop_requested_at = stop_requested_at or time.time()
-            command += f'if [ -f {remote_root}/control/status.json ]; then cat {remote_root}/control/status.json; else echo \'{{"status":"preparing"}}\'; fi'
+            command += (f'if [ -f {remote_root}/control/status.json ]; then cat {remote_root}/control/status.json; '
+                        f'elif [ -f {remote_root}/control/staging.json ]; then cat {remote_root}/control/staging.json; '
+                        'else echo \'{"status":"preparing"}\'; fi')
             response = subprocess.run(ssh + [target, command], capture_output=True, text=True, timeout=60, check=True)
             status = json.loads(response.stdout)
+            status.setdefault('status', 'preparing')
             summary.update(job=status, host=host, port=int(port), status='monitoring')
+            if status['status'] == 'preparing' and status.get('stage') == 'failed':
+                api(f'/instances/{instance_id}/', key, 'PUT', {'state': 'stopped'})
+                summary['status'] = 'stopped_preparation_failed'
+                record()
+                time.sleep(30)
+                continue
             terminal = status.get('status') in {'complete', 'failed'}
             if terminal or (status.get('status') == 'running' and time.time() - last_backup > 600):
                 for subdir in ['control', 'runs/d3']:
