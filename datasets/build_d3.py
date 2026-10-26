@@ -27,7 +27,7 @@ def file_hash(path):
 
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
 
 
 def pool_path(root, relative):
@@ -160,7 +160,7 @@ def materialize(manifest, baseline_root, reviewed_root, output):
         text, _, _ = normalize_labels(label_source)
         label = pool_path(output, row['label'])
         label.parent.mkdir(parents=True, exist_ok=True)
-        label.write_text(text)
+        label.write_text(text, encoding='utf-8', newline='\n')
         if file_hash(destination) != row['image_sha256'] or file_hash(label) != row['label_sha256']:
             raise ValueError(f'Output hash mismatch: {row["id"]}')
     index = {r['id']: r for r in manifest['images']}
