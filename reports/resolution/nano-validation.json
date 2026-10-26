@@ -1,0 +1,319 @@
+{
+  "protocol": {
+    "purpose": "Exploratory validation-only check of inference resolution for the two fixed Nano checkpoints. No retraining, checkpoint selection or test evaluation.",
+    "declared_unix": 1793049163.511255,
+    "split": "val",
+    "imgsz": [
+      320,
+      640
+    ],
+    "trained_imgsz": 320,
+    "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+    "protocol_source": "runners/evaluate_d3.py",
+    "jobs": [
+      {
+        "name": "nano_d2",
+        "weights_sha256": "c38dd733b3ed585b99e325f8e57baf7bb1df3edcb544a66e511026b4ae0459e8"
+      },
+      {
+        "name": "nano_d3",
+        "weights_sha256": "84c56d5a4d5ae10f36a921515f39b388af7d78313e4b6ced2d86425a42e5cbe5"
+      }
+    ],
+    "note": "320px anchors are the fixed common-holdout evaluation. 640px probes are additional GPU validation runs; the Pico export remains 320px."
+  },
+  "rows": [
+    {
+      "name": "nano_d2",
+      "imgsz": 320,
+      "summary": {
+        "weights_name": "nano_d2.pt",
+        "weights_sha256": "c38dd733b3ed585b99e325f8e57baf7bb1df3edcb544a66e511026b4ae0459e8",
+        "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+        "split": "val",
+        "images": 553,
+        "boxes": 1067,
+        "protocol": {
+          "imgsz": 320,
+          "batch": 8,
+          "workers": 0,
+          "conf": 0.001,
+          "iou": 0.7,
+          "max_det": 300,
+          "half": false,
+          "augment": false
+        },
+        "class_names": [
+          "plastic",
+          "paper",
+          "metal",
+          "glass"
+        ],
+        "metrics": {
+          "metrics/precision(B)": 0.4840636427797552,
+          "metrics/recall(B)": 0.4587703108788625,
+          "metrics/mAP50(B)": 0.4250710761660832,
+          "metrics/mAP50-95(B)": 0.294751267643506,
+          "fitness": 0.294751267643506
+        },
+        "per_class": {
+          "plastic": {
+            "precision": 0.5687087878967237,
+            "recall": 0.47854785478547857,
+            "ap50": 0.5187191020170561,
+            "ap50_95": 0.34768114830240365
+          },
+          "paper": {
+            "precision": 0.39047200930146836,
+            "recall": 0.5156833975180637,
+            "ap50": 0.4044179123425128,
+            "ap50_95": 0.28629996571588434
+          },
+          "metal": {
+            "precision": 0.4343277689852043,
+            "recall": 0.4737613836169711,
+            "ap50": 0.38045343505611434,
+            "ap50_95": 0.2843565259487157
+          },
+          "glass": {
+            "precision": 0.5427460049356246,
+            "recall": 0.3670886075949367,
+            "ap50": 0.39669385524864975,
+            "ap50_95": 0.2606674306070203
+          }
+        },
+        "speed_ms": {
+          "preprocess": 0.3952542493569498,
+          "inference": 3.8493211573969983,
+          "loss": 0.0006059677488293505,
+          "postprocess": 1.0634632913773008
+        },
+        "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "python": "3.12.15",
+        "torch": "2.8.0+cu128",
+        "ultralytics": "8.4.143",
+        "platform": "Windows-10-10.0.19045-SP0",
+        "note": "Speed is validator timing, not a controlled deployment benchmark. Hard test is a subset of test."
+      }
+    },
+    {
+      "name": "nano_d2",
+      "imgsz": 640,
+      "summary": {
+        "weights_name": "nano_d2.pt",
+        "weights_sha256": "c38dd733b3ed585b99e325f8e57baf7bb1df3edcb544a66e511026b4ae0459e8",
+        "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+        "split": "val",
+        "images": 553,
+        "boxes": 1067,
+        "protocol": {
+          "imgsz": 640,
+          "batch": 8,
+          "workers": 0,
+          "conf": 0.001,
+          "iou": 0.7,
+          "max_det": 300,
+          "half": false,
+          "augment": false
+        },
+        "class_names": [
+          "plastic",
+          "paper",
+          "metal",
+          "glass"
+        ],
+        "metrics": {
+          "metrics/precision(B)": 0.4660007226624447,
+          "metrics/recall(B)": 0.35486002460351773,
+          "metrics/mAP50(B)": 0.36612028983625083,
+          "metrics/mAP50-95(B)": 0.2686728310784293,
+          "fitness": 0.2686728310784293
+        },
+        "per_class": {
+          "plastic": {
+            "precision": 0.5985488836239896,
+            "recall": 0.37623762376237624,
+            "ap50": 0.44882524291503106,
+            "ap50_95": 0.31815958676359474
+          },
+          "paper": {
+            "precision": 0.44250156101926486,
+            "recall": 0.3817427385892116,
+            "ap50": 0.34525344450460294,
+            "ap50_95": 0.25689200475861307
+          },
+          "metal": {
+            "precision": 0.42738902727181755,
+            "recall": 0.3829787234042553,
+            "ap50": 0.37698558704989577,
+            "ap50_95": 0.3043783124535445
+          },
+          "glass": {
+            "precision": 0.39556341873470685,
+            "recall": 0.27848101265822783,
+            "ap50": 0.2934168848754737,
+            "ap50_95": 0.195261420337965
+          }
+        },
+        "speed_ms": {
+          "preprocess": 0.7378119345043683,
+          "inference": 6.271826944025116,
+          "loss": 0.0005945751517606902,
+          "postprocess": 0.8381352622851823
+        },
+        "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "python": "3.12.15",
+        "torch": "2.8.0+cu128",
+        "ultralytics": "8.4.143",
+        "platform": "Windows-10-10.0.19045-SP0",
+        "note": "Speed is validator timing, not a controlled deployment benchmark. Hard test is a subset of test."
+      }
+    },
+    {
+      "name": "nano_d3",
+      "imgsz": 320,
+      "summary": {
+        "weights_name": "best.pt",
+        "weights_sha256": "84c56d5a4d5ae10f36a921515f39b388af7d78313e4b6ced2d86425a42e5cbe5",
+        "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+        "split": "val",
+        "images": 553,
+        "boxes": 1067,
+        "protocol": {
+          "imgsz": 320,
+          "batch": 8,
+          "workers": 0,
+          "conf": 0.001,
+          "iou": 0.7,
+          "max_det": 300,
+          "half": false,
+          "augment": false
+        },
+        "class_names": [
+          "plastic",
+          "paper",
+          "metal",
+          "glass"
+        ],
+        "metrics": {
+          "metrics/precision(B)": 0.4707346339884049,
+          "metrics/recall(B)": 0.4596416490457608,
+          "metrics/mAP50(B)": 0.4243274065551543,
+          "metrics/mAP50-95(B)": 0.2914097920304414,
+          "fitness": 0.2914097920304414
+        },
+        "per_class": {
+          "plastic": {
+            "precision": 0.529659664905752,
+            "recall": 0.4868704923456099,
+            "ap50": 0.5040768366936752,
+            "ap50_95": 0.3371798637343472
+          },
+          "paper": {
+            "precision": 0.40424016841125204,
+            "recall": 0.5180485591745373,
+            "ap50": 0.38901012709963323,
+            "ap50_95": 0.2668078539221063
+          },
+          "metal": {
+            "precision": 0.48204551152818925,
+            "recall": 0.45390070921985815,
+            "ap50": 0.431688168029487,
+            "ap50_95": 0.33012640454755793
+          },
+          "glass": {
+            "precision": 0.4669931911084264,
+            "recall": 0.379746835443038,
+            "ap50": 0.37253449439782166,
+            "ap50_95": 0.23152504591775416
+          }
+        },
+        "speed_ms": {
+          "preprocess": 0.41279077860838304,
+          "inference": 3.8616130200920336,
+          "loss": 0.0005641952788568428,
+          "postprocess": 1.1438632911916613
+        },
+        "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "python": "3.12.15",
+        "torch": "2.8.0+cu128",
+        "ultralytics": "8.4.143",
+        "platform": "Windows-10-10.0.19045-SP0",
+        "note": "Speed is validator timing, not a controlled deployment benchmark. Hard test is a subset of test."
+      }
+    },
+    {
+      "name": "nano_d3",
+      "imgsz": 640,
+      "summary": {
+        "weights_name": "best.pt",
+        "weights_sha256": "84c56d5a4d5ae10f36a921515f39b388af7d78313e4b6ced2d86425a42e5cbe5",
+        "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+        "split": "val",
+        "images": 553,
+        "boxes": 1067,
+        "protocol": {
+          "imgsz": 640,
+          "batch": 8,
+          "workers": 0,
+          "conf": 0.001,
+          "iou": 0.7,
+          "max_det": 300,
+          "half": false,
+          "augment": false
+        },
+        "class_names": [
+          "plastic",
+          "paper",
+          "metal",
+          "glass"
+        ],
+        "metrics": {
+          "metrics/precision(B)": 0.46401412576046774,
+          "metrics/recall(B)": 0.4286347155068593,
+          "metrics/mAP50(B)": 0.3792928685417611,
+          "metrics/mAP50-95(B)": 0.2852834854374814,
+          "fitness": 0.2852834854374814
+        },
+        "per_class": {
+          "plastic": {
+            "precision": 0.5066422397151388,
+            "recall": 0.42195569639811475,
+            "ap50": 0.42240498655317926,
+            "ap50_95": 0.3137180885308859
+          },
+          "paper": {
+            "precision": 0.3610484466578476,
+            "recall": 0.5158285486486863,
+            "ap50": 0.3647056801944486,
+            "ap50_95": 0.2843968763586868
+          },
+          "metal": {
+            "precision": 0.511431893853405,
+            "recall": 0.4602989207781043,
+            "ap50": 0.4259998761500645,
+            "ap50_95": 0.3475097764556784
+          },
+          "glass": {
+            "precision": 0.4769339228154797,
+            "recall": 0.31645569620253167,
+            "ap50": 0.30406093126935185,
+            "ap50_95": 0.1955092004046743
+          }
+        },
+        "speed_ms": {
+          "preprocess": 0.6444296573505992,
+          "inference": 5.84558607531698,
+          "loss": 0.000599638586712304,
+          "postprocess": 0.8837094032171958
+        },
+        "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "python": "3.12.15",
+        "torch": "2.8.0+cu128",
+        "ultralytics": "8.4.143",
+        "platform": "Windows-10-10.0.19045-SP0",
+        "note": "Speed is validator timing, not a controlled deployment benchmark. Hard test is a subset of test."
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "purpose": "Exploratory validation-only check of inference resolution for the two fixed Nano checkpoints. No retraining, checkpoint selection or test evaluation.",
+  "declared_unix": 1793049163.511255,
+  "split": "val",
+  "imgsz": [
+    320,
+    640
+  ],
+  "trained_imgsz": 320,
+  "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+  "protocol_source": "runners/evaluate_d3.py",
+  "jobs": [
+    {
+      "name": "nano_d2",
+      "weights_sha256": "c38dd733b3ed585b99e325f8e57baf7bb1df3edcb544a66e511026b4ae0459e8"
+    },
+    {
+      "name": "nano_d3",
+      "weights_sha256": "84c56d5a4d5ae10f36a921515f39b388af7d78313e4b6ced2d86425a42e5cbe5"
+    }
+  ],
+  "note": "320px anchors are the fixed common-holdout evaluation. 640px probes are additional GPU validation runs; the Pico export remains 320px."
+}
