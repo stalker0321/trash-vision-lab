@@ -15,10 +15,12 @@ The recovered model has one INT8 output, `1×8×2100`. Channels 0–3 are
 normalized `cx, cy, width, height`; channels 4–7 are sigmoid class scores
 for plastic, paper, metal and glass. There is no separate objectness channel.
 
-The original decoder contains D2-specific affine quantization constants:
-zero point −128 and scale 0.00463843858. Its supported model SHA256 is recorded
-in `deployment/luckfox/provenance.json`. A new D3 export must have its tensor
-layout, quantization and parity checked before using this runtime.
+The recovered D2 decoder used fixed affine parameters: zero point −128 and
+scale 0.00463843858. The current decoder reads those parameters from the
+loaded RKNN model and rejects unsupported tensor layouts. Its host replay
+on all 32 preserved D2 output tensors produced exactly the same 52 detections;
+[regression evidence](../reports/board/decoder-regression.json) records the inputs
+and checks. A new D3 export still needs board parity verification.
 The D3 training run does not by itself validate a D3 board deployment.
 
 ## Build
@@ -85,6 +87,7 @@ and 52 RKNN detections, mean matched IoU 0.812 and mean absolute confidence
 difference 0.028. These are output-agreement measurements, not ground-truth AP.
 The short camera run also does not establish sustained throughput.
 
-The restored C/C++ inference sources and startup script retain their original
-hashes. The portable build and installation wrappers replace personal paths.
+The original source hashes are retained in `deployment/luckfox/provenance.json`.
+The current camera runtime adds model-provided quantization and contract checks;
+the decoder has host tests and the complete runtime was cross-compiled.
 No board is currently connected for a fresh hardware run.

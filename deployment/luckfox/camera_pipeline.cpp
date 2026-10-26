@@ -27,21 +27,9 @@
 
 #include "rknn_api.h"
 
-#define IMGSZ 320
-#define OUT_SCALE 0.00463843858f
-#define OUT_ZP (-128)
-#define CONF_THRES 0.25f
-#define IOU_THRES 0.45f
-#define MAX_DET 300
-#define NCLASS 4
+#include "decoder.h"
 
 static const char *CLASS_NAMES[NCLASS] = {"plastic", "paper", "metal", "glass"};
-
-struct Detection {
-    int cls;
-    float score;
-    float x1, y1, x2, y2;
-};
 
 static double now_ms() {
     struct timespec ts;
@@ -79,53 +67,6 @@ static unsigned char *read_file(const char *path, size_t *size) {
     fclose(fp);
     *size = (size_t)length;
     return data;
-}
-
-static float box_iou(const Detection &a, const Detection &b) {
-    float ix1 = std::max(a.x1, b.x1), iy1 = std::max(a.y1, b.y1);
-    float ix2 = std::min(a.x2, b.x2), iy2 = std::min(a.y2, b.y2);
-    float iw = ix2 - ix1, ih = iy2 - iy1;
-    if (iw <= 0 || ih <= 0) return 0.0f;
-    float inter = iw * ih;
-    float ua = (a.x2 - a.x1) * (a.y2 - a.y1) + (b.x2 - b.x1) * (b.y2 - b.y1) - inter;
-    return ua > 0 ? inter / ua : 0.0f;
-}
-
-static int decode_output(const int8_t *out, std::vector<Detection> &dets) {
-    dets.clear();
-    for (int a = 0; a < 2100; a++) {
-        int best = -1;
-        float bs = 0;
-        for (int c = 0; c < NCLASS; c++) {
-            float s = ((float)out[(4 + c) * 2100 + a] - OUT_ZP) * OUT_SCALE;
-            if (s > bs) { bs = s; best = c; }
-        }
-        if (bs < CONF_THRES) continue;
-        float cx = ((float)out[0 * 2100 + a] - OUT_ZP) * OUT_SCALE * IMGSZ;
-        float cy = ((float)out[1 * 2100 + a] - OUT_ZP) * OUT_SCALE * IMGSZ;
-        float bw = ((float)out[2 * 2100 + a] - OUT_ZP) * OUT_SCALE * IMGSZ;
-        float bh = ((float)out[3 * 2100 + a] - OUT_ZP) * OUT_SCALE * IMGSZ;
-        Detection d;
-        d.cls = best;
-        d.score = bs;
-        d.x1 = cx - bw * 0.5f;
-        d.y1 = cy - bh * 0.5f;
-        d.x2 = cx + bw * 0.5f;
-        d.y2 = cy + bh * 0.5f;
-        dets.push_back(d);
-    }
-    std::sort(dets.begin(), dets.end(),
-              [](const Detection &a, const Detection &b) { return a.score > b.score; });
-    std::vector<Detection> keep;
-    for (const auto &d : dets) {
-        if ((int)keep.size() >= MAX_DET) break;
-        bool suppressed = false;
-        for (const auto &k : keep)
-            if (k.cls == d.cls && box_iou(k, d) > IOU_THRES) { suppressed = true; break; }
-        if (!suppressed) keep.push_back(d);
-    }
-    dets.swap(keep);
-    return (int)dets.size();
 }
 
 static const cv::Scalar CLASS_COLORS[NCLASS] = {
@@ -297,14 +238,34 @@ int main(int argc, char **argv) {
         printf("runtime=%s driver=%s\n", ver.api_version, ver.drv_version);
 
     rknn_input_output_num io;
-    rknn_query(ctx, RKNN_QUERY_IN_OUT_NUM, &io, sizeof(io));
+    if (rknn_query(ctx, RKNN_QUERY_IN_OUT_NUM, &io, sizeof(io)) != RKNN_SUCC || io.n_input != 1 || io.n_output != 1) {
+        fprintf(stderr, "expected one input and one output tensor\n");
+        return 1;
+    }
     rknn_tensor_attr in_attr, out_attr;
     memset(&in_attr, 0, sizeof(in_attr));
     in_attr.index = 0;
-    rknn_query(ctx, RKNN_QUERY_NATIVE_INPUT_ATTR, &in_attr, sizeof(in_attr));
+    if (rknn_query(ctx, RKNN_QUERY_NATIVE_INPUT_ATTR, &in_attr, sizeof(in_attr)) != RKNN_SUCC) {
+        fprintf(stderr, "input tensor query failed\n");
+        return 1;
+    }
     memset(&out_attr, 0, sizeof(out_attr));
     out_attr.index = 0;
-    rknn_query(ctx, RKNN_QUERY_NATIVE_NHWC_OUTPUT_ATTR, &out_attr, sizeof(out_attr));
+    if (rknn_query(ctx, RKNN_QUERY_NATIVE_NHWC_OUTPUT_ATTR, &out_attr, sizeof(out_attr)) != RKNN_SUCC) {
+        fprintf(stderr, "output tensor query failed\n");
+        return 1;
+    }
+    if (in_attr.n_dims != 4 || in_attr.dims[0] != 1 || in_attr.dims[1] != IMGSZ ||
+        in_attr.dims[2] != IMGSZ || in_attr.dims[3] != 3 || in_attr.fmt != RKNN_TENSOR_NHWC ||
+        in_attr.size != IMGSZ * IMGSZ * 3 || in_attr.size_with_stride < in_attr.size ||
+        out_attr.n_dims != 3 || out_attr.dims[0] != 1 || out_attr.dims[1] != 8 || out_attr.dims[2] != 2100 ||
+        out_attr.type != RKNN_TENSOR_INT8 || out_attr.qnt_type != RKNN_TENSOR_QNT_AFFINE_ASYMMETRIC ||
+        out_attr.size != 8 * 2100 || out_attr.size_with_stride < out_attr.size ||
+        !std::isfinite(out_attr.scale) || out_attr.scale <= 0 || out_attr.zp < -128 || out_attr.zp > 127) {
+        fprintf(stderr, "unsupported model tensor layout or affine quantization; verify the Nano320 export contract\n");
+        return 1;
+    }
+    printf("output quantization: zero_point=%d scale=%.9g\n", out_attr.zp, out_attr.scale);
     printf("input dims=%ux%ux%ux%u type=%d size=%u\n", in_attr.dims[0], in_attr.dims[1],
            in_attr.dims[2], in_attr.dims[3], in_attr.type, in_attr.size);
     printf("output dims=%ux%ux%ux%u type=%d size=%u\n", out_attr.dims[0], out_attr.dims[1],
@@ -366,7 +327,7 @@ int main(int argc, char **argv) {
                 fprintf(stderr, "rknn_run failed\n");
                 return -1;
             }
-            int n = decode_output((const int8_t *)out_mem->virt_addr, dets);
+            int n = decode_output((const int8_t *)out_mem->virt_addr, dets, out_attr.scale, out_attr.zp);
             cv::Mat annotated = bgr.clone();
             draw_detections(annotated, dets, scale, left, top);
             char path[256];
@@ -549,7 +510,7 @@ int main(int argc, char **argv) {
                     fprintf(stderr, "rknn_run failed\n");
                     break;
                 }
-                int n = decode_output((const int8_t *)out_mem->virt_addr, dets);
+                int n = decode_output((const int8_t *)out_mem->virt_addr, dets, out_attr.scale, out_attr.zp);
                 cv::Mat annotated = bgr.clone();
                 draw_detections(annotated, dets, scale, left, top);
                 char path[256];
@@ -598,7 +559,7 @@ int main(int argc, char **argv) {
                 fprintf(stderr, "rknn_run failed\n");
                 break;
             }
-            int n = decode_output((const int8_t *)out_mem->virt_addr, dets);
+            int n = decode_output((const int8_t *)out_mem->virt_addr, dets, out_attr.scale, out_attr.zp);
             cv::Mat annotated = bgr.clone();
             draw_detections(annotated, dets, scale, left, top);
             char path[256];
@@ -652,7 +613,7 @@ int main(int argc, char **argv) {
             break;
         }
         double t3 = now_ms();
-        last_n = decode_output((const int8_t *)out_mem->virt_addr, dets);
+        last_n = decode_output((const int8_t *)out_mem->virt_addr, dets, out_attr.scale, out_attr.zp);
         double t4 = now_ms();
 
         if (f >= 5) {

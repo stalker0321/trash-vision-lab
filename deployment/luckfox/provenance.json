@@ -10,5 +10,6 @@
   "runtime": "1.6.0",
   "driver": "0.9.2",
   "output_scale": 0.00463843858,
-  "output_zero_point": -128
+  "output_zero_point": -128,
+  "current_runtime_note": "camera_pipeline.cpp now reads output affine parameters from RKNN and validates its tensor contract; source_sha256 records the recovered originals."
 }

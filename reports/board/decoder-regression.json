@@ -1,0 +1,179 @@
+{
+  "frames": 32,
+  "detections": 52,
+  "exact_same_detections_as_recovered_decoder": true,
+  "fields_compared": [
+    "class",
+    "confidence",
+    "x1",
+    "y1",
+    "x2",
+    "y2"
+  ],
+  "output_scale": 0.00463843858,
+  "output_zero_point": -128,
+  "rknn_sha256": "f1036f2ff419c02593d3b37c4e7738e17a89b18175aa001bec72f1d27be1f16c",
+  "source": "Preserved historical D2 board output tensors; host replay, not a new hardware measurement",
+  "frames_detail": [
+    {
+      "id": "my_photos__00010",
+      "tensor_sha256": "dcab9afa0b83e85a9f0a4ab910296f9208f3fffab5dd2bff5129f6e9e97d4a61",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00013",
+      "tensor_sha256": "b24474d332f4d80de696183b76579c96fd364292d3cad0a7bc93205df1319a17",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00028",
+      "tensor_sha256": "5586ed9e3a1753b2e60460d9ff31cba4f614911886c0b3312fbe30441acfc591",
+      "detections": 2
+    },
+    {
+      "id": "my_photos__00029",
+      "tensor_sha256": "2e35f91372422ee60b79d63973039d73bea8136273adb88f2c3551aed771e040",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00060",
+      "tensor_sha256": "c7c04f9662682dfcebfcaf1e815fd1a1b8dde043515d49c81f12958e18acf369",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00074",
+      "tensor_sha256": "42ee835f276d648b25e39cc00cfac88faa9ef9eaa0fe6bdd336dd261633f4809",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00086",
+      "tensor_sha256": "69a10a26b23396f4c2e31d3f617bed87cbf5744ab6c80a6e16e2b82d1b08e5dd",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00093",
+      "tensor_sha256": "9b0744e0995ec35d64c58843cd2f0fd144a761c94d8898e6bc8d13f02ced328c",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00100",
+      "tensor_sha256": "fbeef83672fec81a76dcfe699fd9b2fa4d882b3ce639d6ff410f6e30893e3446",
+      "detections": 4
+    },
+    {
+      "id": "my_photos__00114",
+      "tensor_sha256": "5db4b84bcbd966b3c5b08f728e7c2f6b782cbe8e48a0cb87eb7a198707b91a62",
+      "detections": 2
+    },
+    {
+      "id": "my_photos__00146",
+      "tensor_sha256": "14250cbfa8dae2a0f0e7336a7951bbae68cb9238e943ae2b6a8ae03fea448c7e",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00162",
+      "tensor_sha256": "190dbf71feac01fa58b4588f97eec5448ce828db837bb5ed1a8af441e61138f8",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00165",
+      "tensor_sha256": "d6811505e5613d3264f2dcd0e5fdb54bc164135423397c97f4e48bd32f0b9fd5",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00171",
+      "tensor_sha256": "a608e13e48dc81e3ca60c33f75d6f9b4d71dc5dee4e9180171f41d667a676bb2",
+      "detections": 4
+    },
+    {
+      "id": "my_photos__00186",
+      "tensor_sha256": "b4e04fbb3b056dbf21001776dff3033569dd087c2c38021cb52e9994986ac213",
+      "detections": 3
+    },
+    {
+      "id": "my_photos__00195",
+      "tensor_sha256": "514b408804a3c65c25ed35afab21c3c971807e0c4129875acec5e8bc794ee89d",
+      "detections": 3
+    },
+    {
+      "id": "my_photos__00197",
+      "tensor_sha256": "d7a1b70ede899e460b7777c7392780b23626d103d33bcc0503c5d85540d74b30",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00235",
+      "tensor_sha256": "fde390ebaa567052ac031b5aff72ee81963d76b17087df405c11e23d985dfd65",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00240",
+      "tensor_sha256": "27e5962b4f1705a3a91866dcfe631313b70cea84f45a8a4baa5c962b36c80bc7",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00290",
+      "tensor_sha256": "8d283b1a652115eba5332988ef80de22b3966b85b46a92425236d45eb255f427",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00293",
+      "tensor_sha256": "51f8e4a81258f79a556c9ad472438f648b8fd5c47cae4528e6db943eb6213ae4",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00303",
+      "tensor_sha256": "b86e9eb2d9990f090c4f5fd6327c893f869e4c230b42e7786d9796749a0f3c61",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00528",
+      "tensor_sha256": "8326dd872325954cb4620815211f208ee1dbd57230cfc4384dc27e44fa1d4ab3",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00547",
+      "tensor_sha256": "2b093664d5e5377a08264aea0ad296bdc478a635e58f124ceadd320335f54328",
+      "detections": 2
+    },
+    {
+      "id": "my_photos__00587",
+      "tensor_sha256": "f106b82a7b524d68b5091dc7f7557bfcd10c5cc5c8dcc65eef40d072b23b109b",
+      "detections": 3
+    },
+    {
+      "id": "my_photos__00602",
+      "tensor_sha256": "cc7e24490043169bb53ce87db2255ed08fbf27446921fb3e7b025ddead157545",
+      "detections": 4
+    },
+    {
+      "id": "my_photos__00604",
+      "tensor_sha256": "0846d4d1ef571e129d89504c2dfbaf55cd6334f2d58a9b266cf1ea63b5d861d7",
+      "detections": 3
+    },
+    {
+      "id": "my_photos__00605",
+      "tensor_sha256": "e60a0c8edc5d5c4fd7190367e3dfc1f756e577da6a0072996e0c8d13dbe6fb7c",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00623",
+      "tensor_sha256": "33b98c72554819a605874614f085c90949aa9233fb5c60a3b87c0f61dbbc31d2",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00625",
+      "tensor_sha256": "ea22eecb41c627b4e9a7634c15af6de4747a8313333afa34ef6a0301309dc77a",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00637",
+      "tensor_sha256": "e25edef00cc0f8a2aeacf74b38b9ce31aaee57c6fe09645e9de655d44fde9a47",
+      "detections": 1
+    },
+    {
+      "id": "my_photos__00639",
+      "tensor_sha256": "3c3873cc27bc5e02b5cb0e17f81ab418118305b052ba608bcf7181a5eafc6990",
+      "detections": 1
+    }
+  ]
+}
