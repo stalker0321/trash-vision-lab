@@ -1,0 +1,897 @@
+{
+  "status": "complete",
+  "experimental": true,
+  "weights_sha256": "c38dd733b3ed585b99e325f8e57baf7bb1df3edcb544a66e511026b4ae0459e8",
+  "onnx_sha256": "07d701a44a8c3bced283f3a75948d166a293e3c8a30c75757ec2093a7918d9ed",
+  "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+  "protocol": {
+    "base_confidence": 0.25,
+    "classwise_nms_iou": 0.45,
+    "match_iou": 0.5,
+    "max_det": 300,
+    "matching": "Confidence-ordered class-agnostic greedy one-to-one matching",
+    "threshold_grids": {
+      "margin": [
+        0,
+        0.025,
+        0.05,
+        0.075,
+        0.1,
+        0.15,
+        0.2,
+        0.25
+      ],
+      "confidence": [
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.6,
+        0.7
+      ]
+    },
+    "selection": "Maximize named matched material accuracy on val, retaining >=90% matched boxes and >=50 named matches; tie: more coverage, then lower threshold.",
+    "inference": "Nano320 normalized FP32 ONNX, one-to-many branch with explicit confidence/NMS; not the AP evaluation protocol",
+    "action": "Keep every detected box. Replace only its material label by unknown when the rule rejects it."
+  },
+  "validation_candidates": {
+    "margin": [
+      {
+        "method": "margin",
+        "threshold": 0,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 969,
+        "unknown_material_detections": 0,
+        "named_matched_boxes": 680,
+        "matched_box_material_coverage": 1.0,
+        "named_matched_material_accuracy": 0.6602941176470588,
+        "named_detection_precision": 0.4633642930856553,
+        "correct_labels_deferred": 0,
+        "wrong_labels_deferred": 0,
+        "named_unmatched_detections": 289,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 369,
+            "correct_named": 252
+          },
+          "paper": {
+            "matched": 165,
+            "named": 165,
+            "correct_named": 114
+          },
+          "metal": {
+            "matched": 104,
+            "named": 104,
+            "correct_named": 51
+          },
+          "glass": {
+            "matched": 42,
+            "named": 42,
+            "correct_named": 32
+          }
+        }
+      },
+      {
+        "method": "margin",
+        "threshold": 0.025,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 958,
+        "unknown_material_detections": 11,
+        "named_matched_boxes": 680,
+        "matched_box_material_coverage": 1.0,
+        "named_matched_material_accuracy": 0.6602941176470588,
+        "named_detection_precision": 0.46868475991649267,
+        "correct_labels_deferred": 0,
+        "wrong_labels_deferred": 0,
+        "named_unmatched_detections": 278,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 369,
+            "correct_named": 252
+          },
+          "paper": {
+            "matched": 165,
+            "named": 165,
+            "correct_named": 114
+          },
+          "metal": {
+            "matched": 104,
+            "named": 104,
+            "correct_named": 51
+          },
+          "glass": {
+            "matched": 42,
+            "named": 42,
+            "correct_named": 32
+          }
+        }
+      },
+      {
+        "method": "margin",
+        "threshold": 0.05,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 944,
+        "unknown_material_detections": 25,
+        "named_matched_boxes": 678,
+        "matched_box_material_coverage": 0.9970588235294118,
+        "named_matched_material_accuracy": 0.6592920353982301,
+        "named_detection_precision": 0.4735169491525424,
+        "correct_labels_deferred": 2,
+        "wrong_labels_deferred": 0,
+        "named_unmatched_detections": 266,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 368,
+            "correct_named": 251
+          },
+          "paper": {
+            "matched": 165,
+            "named": 164,
+            "correct_named": 113
+          },
+          "metal": {
+            "matched": 104,
+            "named": 104,
+            "correct_named": 51
+          },
+          "glass": {
+            "matched": 42,
+            "named": 42,
+            "correct_named": 32
+          }
+        }
+      },
+      {
+        "method": "margin",
+        "threshold": 0.075,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 924,
+        "unknown_material_detections": 45,
+        "named_matched_boxes": 674,
+        "matched_box_material_coverage": 0.9911764705882353,
+        "named_matched_material_accuracy": 0.6617210682492581,
+        "named_detection_precision": 0.48268398268398266,
+        "correct_labels_deferred": 3,
+        "wrong_labels_deferred": 3,
+        "named_unmatched_detections": 250,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 367,
+            "correct_named": 251
+          },
+          "paper": {
+            "matched": 165,
+            "named": 161,
+            "correct_named": 112
+          },
+          "metal": {
+            "matched": 104,
+            "named": 104,
+            "correct_named": 51
+          },
+          "glass": {
+            "matched": 42,
+            "named": 42,
+            "correct_named": 32
+          }
+        }
+      },
+      {
+        "method": "margin",
+        "threshold": 0.1,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 913,
+        "unknown_material_detections": 56,
+        "named_matched_boxes": 668,
+        "matched_box_material_coverage": 0.9823529411764705,
+        "named_matched_material_accuracy": 0.6661676646706587,
+        "named_detection_precision": 0.4874041621029573,
+        "correct_labels_deferred": 4,
+        "wrong_labels_deferred": 8,
+        "named_unmatched_detections": 245,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 364,
+            "correct_named": 251
+          },
+          "paper": {
+            "matched": 165,
+            "named": 161,
+            "correct_named": 112
+          },
+          "metal": {
+            "matched": 104,
+            "named": 101,
+            "correct_named": 50
+          },
+          "glass": {
+            "matched": 42,
+            "named": 42,
+            "correct_named": 32
+          }
+        }
+      },
+      {
+        "method": "margin",
+        "threshold": 0.15,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 867,
+        "unknown_material_detections": 102,
+        "named_matched_boxes": 651,
+        "matched_box_material_coverage": 0.9573529411764706,
+        "named_matched_material_accuracy": 0.6728110599078341,
+        "named_detection_precision": 0.5051903114186851,
+        "correct_labels_deferred": 11,
+        "wrong_labels_deferred": 18,
+        "named_unmatched_detections": 216,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 355,
+            "correct_named": 247
+          },
+          "paper": {
+            "matched": 165,
+            "named": 155,
+            "correct_named": 111
+          },
+          "metal": {
+            "matched": 104,
+            "named": 99,
+            "correct_named": 48
+          },
+          "glass": {
+            "matched": 42,
+            "named": 42,
+            "correct_named": 32
+          }
+        }
+      },
+      {
+        "method": "margin",
+        "threshold": 0.2,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 818,
+        "unknown_material_detections": 151,
+        "named_matched_boxes": 628,
+        "matched_box_material_coverage": 0.9235294117647059,
+        "named_matched_material_accuracy": 0.6751592356687898,
+        "named_detection_precision": 0.5183374083129584,
+        "correct_labels_deferred": 25,
+        "wrong_labels_deferred": 27,
+        "named_unmatched_detections": 190,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 345,
+            "correct_named": 239
+          },
+          "paper": {
+            "matched": 165,
+            "named": 149,
+            "correct_named": 107
+          },
+          "metal": {
+            "matched": 104,
+            "named": 92,
+            "correct_named": 46
+          },
+          "glass": {
+            "matched": 42,
+            "named": 42,
+            "correct_named": 32
+          }
+        }
+      },
+      {
+        "method": "margin",
+        "threshold": 0.25,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 759,
+        "unknown_material_detections": 210,
+        "named_matched_boxes": 601,
+        "matched_box_material_coverage": 0.8838235294117647,
+        "named_matched_material_accuracy": 0.6905158069883528,
+        "named_detection_precision": 0.546772068511199,
+        "correct_labels_deferred": 34,
+        "wrong_labels_deferred": 45,
+        "named_unmatched_detections": 158,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 331,
+            "correct_named": 237
+          },
+          "paper": {
+            "matched": 165,
+            "named": 141,
+            "correct_named": 102
+          },
+          "metal": {
+            "matched": 104,
+            "named": 88,
+            "correct_named": 44
+          },
+          "glass": {
+            "matched": 42,
+            "named": 41,
+            "correct_named": 32
+          }
+        }
+      }
+    ],
+    "confidence": [
+      {
+        "method": "confidence",
+        "threshold": 0.25,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 969,
+        "unknown_material_detections": 0,
+        "named_matched_boxes": 680,
+        "matched_box_material_coverage": 1.0,
+        "named_matched_material_accuracy": 0.6602941176470588,
+        "named_detection_precision": 0.4633642930856553,
+        "correct_labels_deferred": 0,
+        "wrong_labels_deferred": 0,
+        "named_unmatched_detections": 289,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 369,
+            "correct_named": 252
+          },
+          "paper": {
+            "matched": 165,
+            "named": 165,
+            "correct_named": 114
+          },
+          "metal": {
+            "matched": 104,
+            "named": 104,
+            "correct_named": 51
+          },
+          "glass": {
+            "matched": 42,
+            "named": 42,
+            "correct_named": 32
+          }
+        }
+      },
+      {
+        "method": "confidence",
+        "threshold": 0.3,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 877,
+        "unknown_material_detections": 92,
+        "named_matched_boxes": 655,
+        "matched_box_material_coverage": 0.9632352941176471,
+        "named_matched_material_accuracy": 0.6641221374045801,
+        "named_detection_precision": 0.4960091220068415,
+        "correct_labels_deferred": 14,
+        "wrong_labels_deferred": 11,
+        "named_unmatched_detections": 222,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 354,
+            "correct_named": 241
+          },
+          "paper": {
+            "matched": 165,
+            "named": 161,
+            "correct_named": 112
+          },
+          "metal": {
+            "matched": 104,
+            "named": 100,
+            "correct_named": 51
+          },
+          "glass": {
+            "matched": 42,
+            "named": 40,
+            "correct_named": 31
+          }
+        }
+      },
+      {
+        "method": "confidence",
+        "threshold": 0.35,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 782,
+        "unknown_material_detections": 187,
+        "named_matched_boxes": 615,
+        "matched_box_material_coverage": 0.9044117647058824,
+        "named_matched_material_accuracy": 0.6764227642276422,
+        "named_detection_precision": 0.5319693094629157,
+        "correct_labels_deferred": 33,
+        "wrong_labels_deferred": 32,
+        "named_unmatched_detections": 167,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 341,
+            "correct_named": 234
+          },
+          "paper": {
+            "matched": 165,
+            "named": 149,
+            "correct_named": 108
+          },
+          "metal": {
+            "matched": 104,
+            "named": 91,
+            "correct_named": 47
+          },
+          "glass": {
+            "matched": 42,
+            "named": 34,
+            "correct_named": 27
+          }
+        }
+      },
+      {
+        "method": "confidence",
+        "threshold": 0.4,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 679,
+        "unknown_material_detections": 290,
+        "named_matched_boxes": 558,
+        "matched_box_material_coverage": 0.8205882352941176,
+        "named_matched_material_accuracy": 0.6899641577060932,
+        "named_detection_precision": 0.5670103092783505,
+        "correct_labels_deferred": 64,
+        "wrong_labels_deferred": 58,
+        "named_unmatched_detections": 121,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 315,
+            "correct_named": 222
+          },
+          "paper": {
+            "matched": 165,
+            "named": 131,
+            "correct_named": 97
+          },
+          "metal": {
+            "matched": 104,
+            "named": 80,
+            "correct_named": 41
+          },
+          "glass": {
+            "matched": 42,
+            "named": 32,
+            "correct_named": 25
+          }
+        }
+      },
+      {
+        "method": "confidence",
+        "threshold": 0.45,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 593,
+        "unknown_material_detections": 376,
+        "named_matched_boxes": 507,
+        "matched_box_material_coverage": 0.7455882352941177,
+        "named_matched_material_accuracy": 0.7100591715976331,
+        "named_detection_precision": 0.6070826306913997,
+        "correct_labels_deferred": 89,
+        "wrong_labels_deferred": 84,
+        "named_unmatched_detections": 86,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 294,
+            "correct_named": 209
+          },
+          "paper": {
+            "matched": 165,
+            "named": 116,
+            "correct_named": 89
+          },
+          "metal": {
+            "matched": 104,
+            "named": 67,
+            "correct_named": 38
+          },
+          "glass": {
+            "matched": 42,
+            "named": 30,
+            "correct_named": 24
+          }
+        }
+      },
+      {
+        "method": "confidence",
+        "threshold": 0.5,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 521,
+        "unknown_material_detections": 448,
+        "named_matched_boxes": 461,
+        "matched_box_material_coverage": 0.6779411764705883,
+        "named_matched_material_accuracy": 0.7223427331887202,
+        "named_detection_precision": 0.6391554702495201,
+        "correct_labels_deferred": 116,
+        "wrong_labels_deferred": 103,
+        "named_unmatched_detections": 60,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 268,
+            "correct_named": 192
+          },
+          "paper": {
+            "matched": 165,
+            "named": 106,
+            "correct_named": 82
+          },
+          "metal": {
+            "matched": 104,
+            "named": 61,
+            "correct_named": 36
+          },
+          "glass": {
+            "matched": 42,
+            "named": 26,
+            "correct_named": 23
+          }
+        }
+      },
+      {
+        "method": "confidence",
+        "threshold": 0.6,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 386,
+        "unknown_material_detections": 583,
+        "named_matched_boxes": 359,
+        "matched_box_material_coverage": 0.5279411764705882,
+        "named_matched_material_accuracy": 0.7604456824512534,
+        "named_detection_precision": 0.7072538860103627,
+        "correct_labels_deferred": 176,
+        "wrong_labels_deferred": 145,
+        "named_unmatched_detections": 27,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 208,
+            "correct_named": 158
+          },
+          "paper": {
+            "matched": 165,
+            "named": 84,
+            "correct_named": 64
+          },
+          "metal": {
+            "matched": 104,
+            "named": 45,
+            "correct_named": 31
+          },
+          "glass": {
+            "matched": 42,
+            "named": 22,
+            "correct_named": 20
+          }
+        }
+      },
+      {
+        "method": "confidence",
+        "threshold": 0.7,
+        "images": 553,
+        "ground_truth_boxes": 1067,
+        "detections": 969,
+        "matched_boxes": 680,
+        "unmatched_detections": 289,
+        "named_detections": 244,
+        "unknown_material_detections": 725,
+        "named_matched_boxes": 233,
+        "matched_box_material_coverage": 0.3426470588235294,
+        "named_matched_material_accuracy": 0.7682403433476395,
+        "named_detection_precision": 0.7336065573770492,
+        "correct_labels_deferred": 270,
+        "wrong_labels_deferred": 177,
+        "named_unmatched_detections": 11,
+        "per_true_class": {
+          "plastic": {
+            "matched": 369,
+            "named": 135,
+            "correct_named": 106
+          },
+          "paper": {
+            "matched": 165,
+            "named": 49,
+            "correct_named": 35
+          },
+          "metal": {
+            "matched": 104,
+            "named": 36,
+            "correct_named": 26
+          },
+          "glass": {
+            "matched": 42,
+            "named": 13,
+            "correct_named": 12
+          }
+        }
+      }
+    ]
+  },
+  "selected_on_validation": {
+    "margin": {
+      "method": "margin",
+      "threshold": 0.2,
+      "images": 553,
+      "ground_truth_boxes": 1067,
+      "detections": 969,
+      "matched_boxes": 680,
+      "unmatched_detections": 289,
+      "named_detections": 818,
+      "unknown_material_detections": 151,
+      "named_matched_boxes": 628,
+      "matched_box_material_coverage": 0.9235294117647059,
+      "named_matched_material_accuracy": 0.6751592356687898,
+      "named_detection_precision": 0.5183374083129584,
+      "correct_labels_deferred": 25,
+      "wrong_labels_deferred": 27,
+      "named_unmatched_detections": 190,
+      "per_true_class": {
+        "plastic": {
+          "matched": 369,
+          "named": 345,
+          "correct_named": 239
+        },
+        "paper": {
+          "matched": 165,
+          "named": 149,
+          "correct_named": 107
+        },
+        "metal": {
+          "matched": 104,
+          "named": 92,
+          "correct_named": 46
+        },
+        "glass": {
+          "matched": 42,
+          "named": 42,
+          "correct_named": 32
+        }
+      }
+    },
+    "confidence": {
+      "method": "confidence",
+      "threshold": 0.35,
+      "images": 553,
+      "ground_truth_boxes": 1067,
+      "detections": 969,
+      "matched_boxes": 680,
+      "unmatched_detections": 289,
+      "named_detections": 782,
+      "unknown_material_detections": 187,
+      "named_matched_boxes": 615,
+      "matched_box_material_coverage": 0.9044117647058824,
+      "named_matched_material_accuracy": 0.6764227642276422,
+      "named_detection_precision": 0.5319693094629157,
+      "correct_labels_deferred": 33,
+      "wrong_labels_deferred": 32,
+      "named_unmatched_detections": 167,
+      "per_true_class": {
+        "plastic": {
+          "matched": 369,
+          "named": 341,
+          "correct_named": 234
+        },
+        "paper": {
+          "matched": 165,
+          "named": 149,
+          "correct_named": 108
+        },
+        "metal": {
+          "matched": 104,
+          "named": 91,
+          "correct_named": 47
+        },
+        "glass": {
+          "matched": 42,
+          "named": 34,
+          "correct_named": 27
+        }
+      }
+    }
+  },
+  "test_baseline": {
+    "method": "margin",
+    "threshold": 0,
+    "images": 552,
+    "ground_truth_boxes": 1044,
+    "detections": 1021,
+    "matched_boxes": 712,
+    "unmatched_detections": 309,
+    "named_detections": 1021,
+    "unknown_material_detections": 0,
+    "named_matched_boxes": 712,
+    "matched_box_material_coverage": 1.0,
+    "named_matched_material_accuracy": 0.6783707865168539,
+    "named_detection_precision": 0.4730656219392752,
+    "correct_labels_deferred": 0,
+    "wrong_labels_deferred": 0,
+    "named_unmatched_detections": 309,
+    "per_true_class": {
+      "plastic": {
+        "matched": 383,
+        "named": 383,
+        "correct_named": 286
+      },
+      "paper": {
+        "matched": 179,
+        "named": 179,
+        "correct_named": 117
+      },
+      "metal": {
+        "matched": 105,
+        "named": 105,
+        "correct_named": 53
+      },
+      "glass": {
+        "matched": 45,
+        "named": 45,
+        "correct_named": 27
+      }
+    }
+  },
+  "test_selected": {
+    "margin": {
+      "method": "margin",
+      "threshold": 0.2,
+      "images": 552,
+      "ground_truth_boxes": 1044,
+      "detections": 1021,
+      "matched_boxes": 712,
+      "unmatched_detections": 309,
+      "named_detections": 871,
+      "unknown_material_detections": 150,
+      "named_matched_boxes": 664,
+      "matched_box_material_coverage": 0.9325842696629213,
+      "named_matched_material_accuracy": 0.7033132530120482,
+      "named_detection_precision": 0.5361653272101033,
+      "correct_labels_deferred": 16,
+      "wrong_labels_deferred": 32,
+      "named_unmatched_detections": 207,
+      "per_true_class": {
+        "plastic": {
+          "matched": 383,
+          "named": 357,
+          "correct_named": 277
+        },
+        "paper": {
+          "matched": 179,
+          "named": 171,
+          "correct_named": 112
+        },
+        "metal": {
+          "matched": 105,
+          "named": 94,
+          "correct_named": 51
+        },
+        "glass": {
+          "matched": 45,
+          "named": 42,
+          "correct_named": 27
+        }
+      }
+    },
+    "confidence": {
+      "method": "confidence",
+      "threshold": 0.35,
+      "images": 552,
+      "ground_truth_boxes": 1044,
+      "detections": 1021,
+      "matched_boxes": 712,
+      "unmatched_detections": 309,
+      "named_detections": 803,
+      "unknown_material_detections": 218,
+      "named_matched_boxes": 631,
+      "matched_box_material_coverage": 0.8862359550561798,
+      "named_matched_material_accuracy": 0.7068145800316957,
+      "named_detection_precision": 0.5554171855541719,
+      "correct_labels_deferred": 37,
+      "wrong_labels_deferred": 44,
+      "named_unmatched_detections": 172,
+      "per_true_class": {
+        "plastic": {
+          "matched": 383,
+          "named": 339,
+          "correct_named": 262
+        },
+        "paper": {
+          "matched": 179,
+          "named": 165,
+          "correct_named": 109
+        },
+        "metal": {
+          "matched": 105,
+          "named": 92,
+          "correct_named": 50
+        },
+        "glass": {
+          "matched": 45,
+          "named": 35,
+          "correct_named": 25
+        }
+      }
+    }
+  },
+  "caveats": [
+    "Class scores are not calibrated probabilities or a separate objectness score.",
+    "Abstention changes material naming, not box recall or the underlying false detections.",
+    "Only known four-material ground truth is evaluated; this is not open-set unknown-object detection.",
+    "FP32 host inference is not an INT8 board measurement; thresholds need board verification.",
+    "One checkpoint and a retrospectively reviewed holdout; no claim of statistical significance."
+  ],
+  "selection_sha256": "57d1ef4051465c25a7604cc6c0d6be46d87859871b91b8466fa70337d8b31c70"
+}
