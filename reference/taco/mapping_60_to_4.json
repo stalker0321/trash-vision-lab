@@ -1,0 +1,616 @@
+{
+  "version": "2026-09-08-approved-v1",
+  "source_commit": "29de1a9ba05a647b83a90f18d7772e20bb23d846",
+  "purpose": "Four-class CV annotation convention; not a recyclability or chemical-purity classifier.",
+  "output_names": [
+    "plastic",
+    "paper",
+    "metal",
+    "glass"
+  ],
+  "apply_to": "raw COCO annotations; curated D2 is not overwritten",
+  "status": "approved_by_user",
+  "categories": [
+    {
+      "source_id": 0,
+      "source_name": "Aluminium foil",
+      "supercategory": "Aluminium foil",
+      "target": "metal",
+      "target_id": 2,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 1,
+      "source_name": "Battery",
+      "supercategory": "Battery",
+      "target": null,
+      "target_id": null,
+      "decision_basis": "proposed_exclusion",
+      "reason": "Proposed non-target: battery is outside the four packaging/material target groups.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 2,
+      "source_name": "Aluminium blister pack",
+      "supercategory": "Blister pack",
+      "target": "metal",
+      "target_id": 2,
+      "decision_basis": "explicit_user",
+      "reason": "User policy: blister packs -> metal, including composite packaging.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 3,
+      "source_name": "Carded blister pack",
+      "supercategory": "Blister pack",
+      "target": "metal",
+      "target_id": 2,
+      "decision_basis": "explicit_user",
+      "reason": "User policy: blister packs -> metal; carded backing does not create a second target.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 4,
+      "source_name": "Other plastic bottle",
+      "supercategory": "Bottle",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 5,
+      "source_name": "Clear plastic bottle",
+      "supercategory": "Bottle",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 6,
+      "source_name": "Glass bottle",
+      "supercategory": "Bottle",
+      "target": "glass",
+      "target_id": 3,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 7,
+      "source_name": "Plastic bottle cap",
+      "supercategory": "Bottle cap",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 8,
+      "source_name": "Metal bottle cap",
+      "supercategory": "Bottle cap",
+      "target": "metal",
+      "target_id": 2,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 9,
+      "source_name": "Broken glass",
+      "supercategory": "Broken glass",
+      "target": "glass",
+      "target_id": 3,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 10,
+      "source_name": "Food Can",
+      "supercategory": "Can",
+      "target": "metal",
+      "target_id": 2,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 11,
+      "source_name": "Aerosol",
+      "supercategory": "Can",
+      "target": "metal",
+      "target_id": 2,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 12,
+      "source_name": "Drink can",
+      "supercategory": "Can",
+      "target": "metal",
+      "target_id": 2,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 13,
+      "source_name": "Toilet tube",
+      "supercategory": "Carton",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 14,
+      "source_name": "Other carton",
+      "supercategory": "Carton",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 15,
+      "source_name": "Egg carton",
+      "supercategory": "Carton",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 16,
+      "source_name": "Drink carton",
+      "supercategory": "Carton",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "explicit_user",
+      "reason": "User policy: Tetra Pak/drink cartons -> paper.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 17,
+      "source_name": "Corrugated carton",
+      "supercategory": "Carton",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 18,
+      "source_name": "Meal carton",
+      "supercategory": "Carton",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 19,
+      "source_name": "Pizza box",
+      "supercategory": "Carton",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 20,
+      "source_name": "Paper cup",
+      "supercategory": "Cup",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "proposed_policy_extension",
+      "reason": "Paper cup -> paper under packaging-family policy, coating does not change target.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 21,
+      "source_name": "Disposable plastic cup",
+      "supercategory": "Cup",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 22,
+      "source_name": "Foam cup",
+      "supercategory": "Cup",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "explicit_user",
+      "reason": "User confirmed foam cups -> plastic.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 23,
+      "source_name": "Glass cup",
+      "supercategory": "Cup",
+      "target": "glass",
+      "target_id": 3,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 24,
+      "source_name": "Other plastic cup",
+      "supercategory": "Cup",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 25,
+      "source_name": "Food waste",
+      "supercategory": "Food waste",
+      "target": null,
+      "target_id": null,
+      "decision_basis": "proposed_exclusion",
+      "reason": "Proposed non-target: food waste.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 26,
+      "source_name": "Glass jar",
+      "supercategory": "Glass jar",
+      "target": "glass",
+      "target_id": 3,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 27,
+      "source_name": "Plastic lid",
+      "supercategory": "Lid",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 28,
+      "source_name": "Metal lid",
+      "supercategory": "Lid",
+      "target": "metal",
+      "target_id": 2,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 29,
+      "source_name": "Other plastic",
+      "supercategory": "Other plastic",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 30,
+      "source_name": "Magazine paper",
+      "supercategory": "Paper",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 31,
+      "source_name": "Tissues",
+      "supercategory": "Paper",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 32,
+      "source_name": "Wrapping paper",
+      "supercategory": "Paper",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 33,
+      "source_name": "Normal paper",
+      "supercategory": "Paper",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 34,
+      "source_name": "Paper bag",
+      "supercategory": "Paper bag",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 35,
+      "source_name": "Plastified paper bag",
+      "supercategory": "Paper bag",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "proposed_policy_extension",
+      "reason": "Proposed consistent extension: coated/laminated paper bag -> paper, like coated paper packaging.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 36,
+      "source_name": "Plastic film",
+      "supercategory": "Plastic bag & wrapper",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 37,
+      "source_name": "Six pack rings",
+      "supercategory": "Plastic bag & wrapper",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 38,
+      "source_name": "Garbage bag",
+      "supercategory": "Plastic bag & wrapper",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 39,
+      "source_name": "Other plastic wrapper",
+      "supercategory": "Plastic bag & wrapper",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 40,
+      "source_name": "Single-use carrier bag",
+      "supercategory": "Plastic bag & wrapper",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 41,
+      "source_name": "Polypropylene bag",
+      "supercategory": "Plastic bag & wrapper",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 42,
+      "source_name": "Crisp packet",
+      "supercategory": "Plastic bag & wrapper",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "proposed_policy_extension",
+      "reason": "Crisp packet -> plastic under wrapper-family policy, metallization does not change target.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 43,
+      "source_name": "Spread tub",
+      "supercategory": "Plastic container",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 44,
+      "source_name": "Tupperware",
+      "supercategory": "Plastic container",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 45,
+      "source_name": "Disposable food container",
+      "supercategory": "Plastic container",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 46,
+      "source_name": "Foam food container",
+      "supercategory": "Plastic container",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "proposed_policy_extension",
+      "reason": "Foam food container -> plastic, consistent with other foam packaging.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 47,
+      "source_name": "Other plastic container",
+      "supercategory": "Plastic container",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 48,
+      "source_name": "Plastic glooves",
+      "supercategory": "Plastic glooves",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 49,
+      "source_name": "Plastic utensils",
+      "supercategory": "Plastic utensils",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 50,
+      "source_name": "Pop tab",
+      "supercategory": "Pop tab",
+      "target": "metal",
+      "target_id": 2,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 51,
+      "source_name": "Rope & strings",
+      "supercategory": "Rope & strings",
+      "target": null,
+      "target_id": null,
+      "decision_basis": "proposed_exclusion",
+      "reason": "Proposed non-target: source category does not specify synthetic versus natural fiber.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 52,
+      "source_name": "Scrap metal",
+      "supercategory": "Scrap metal",
+      "target": "metal",
+      "target_id": 2,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 53,
+      "source_name": "Shoe",
+      "supercategory": "Shoe",
+      "target": null,
+      "target_id": null,
+      "decision_basis": "proposed_exclusion",
+      "reason": "Proposed non-target: footwear.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 54,
+      "source_name": "Squeezable tube",
+      "supercategory": "Squeezable tube",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "explicit_user",
+      "reason": "User policy: squeezable tubes -> plastic regardless of composite construction.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 55,
+      "source_name": "Plastic straw",
+      "supercategory": "Straw",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 56,
+      "source_name": "Paper straw",
+      "supercategory": "Straw",
+      "target": "paper",
+      "target_id": 1,
+      "decision_basis": "direct_material_category",
+      "reason": "Direct assignment from source category material/packaging family.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 57,
+      "source_name": "Styrofoam piece",
+      "supercategory": "Styrofoam piece",
+      "target": "plastic",
+      "target_id": 0,
+      "decision_basis": "explicit_user",
+      "reason": "User confirmed Styrofoam pieces -> plastic.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 58,
+      "source_name": "Unlabeled litter",
+      "supercategory": "Unlabeled litter",
+      "target": null,
+      "target_id": null,
+      "decision_basis": "proposed_exclusion",
+      "reason": "Proposed exclusion: unknown material; never map Unlabeled litter to plastic automatically.",
+      "approved_by_user": true
+    },
+    {
+      "source_id": 59,
+      "source_name": "Cigarette",
+      "supercategory": "Cigarette",
+      "target": null,
+      "target_id": null,
+      "decision_basis": "proposed_exclusion",
+      "reason": "Proposed non-target: cigarette/butt; do not label plastic based on filter chemistry.",
+      "approved_by_user": true
+    }
+  ],
+  "approved_scope": "All 60 assignments, including six excluded categories"
+}

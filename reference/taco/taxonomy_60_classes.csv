@@ -1,0 +1,61 @@
+id,supercategory,name,official_bbox,community_bbox
+0,Aluminium foil,Aluminium foil,62,91
+1,Battery,Battery,2,22
+2,Blister pack,Aluminium blister pack,6,18
+3,Blister pack,Carded blister pack,1,4
+4,Bottle,Other plastic bottle,50,288
+5,Bottle,Clear plastic bottle,285,619
+6,Bottle,Glass bottle,104,281
+7,Bottle cap,Plastic bottle cap,209,189
+8,Bottle cap,Metal bottle cap,80,59
+9,Broken glass,Broken glass,138,96
+10,Can,Food Can,34,38
+11,Can,Aerosol,10,8
+12,Can,Drink can,229,403
+13,Carton,Toilet tube,5,2
+14,Carton,Other carton,93,120
+15,Carton,Egg carton,11,5
+16,Carton,Drink carton,45,58
+17,Carton,Corrugated carton,64,38
+18,Carton,Meal carton,30,35
+19,Carton,Pizza box,3,8
+20,Cup,Paper cup,67,104
+21,Cup,Disposable plastic cup,104,156
+22,Cup,Foam cup,13,36
+23,Cup,Glass cup,6,6
+24,Cup,Other plastic cup,2,51
+25,Food waste,Food waste,8,27
+26,Glass jar,Glass jar,6,12
+27,Lid,Plastic lid,77,104
+28,Lid,Metal lid,10,25
+29,Other plastic,Other plastic,273,614
+30,Paper,Magazine paper,12,61
+31,Paper,Tissues,42,219
+32,Paper,Wrapping paper,12,161
+33,Paper,Normal paper,82,327
+34,Paper bag,Paper bag,27,54
+35,Paper bag,Plastified paper bag,0,56
+36,Plastic bag & wrapper,Plastic film,451,253
+37,Plastic bag & wrapper,Six pack rings,5,9
+38,Plastic bag & wrapper,Garbage bag,31,178
+39,Plastic bag & wrapper,Other plastic wrapper,260,531
+40,Plastic bag & wrapper,Single-use carrier bag,61,263
+41,Plastic bag & wrapper,Polypropylene bag,3,59
+42,Plastic bag & wrapper,Crisp packet,39,255
+43,Plastic container,Spread tub,9,22
+44,Plastic container,Tupperware,4,8
+45,Plastic container,Disposable food container,38,78
+46,Plastic container,Foam food container,15,67
+47,Plastic container,Other plastic container,6,124
+48,Plastic glooves,Plastic glooves,4,14
+49,Plastic utensils,Plastic utensils,37,171
+50,Pop tab,Pop tab,99,31
+51,Rope & strings,Rope & strings,29,71
+52,Scrap metal,Scrap metal,20,65
+53,Shoe,Shoe,7,35
+54,Squeezable tube,Squeezable tube,7,22
+55,Straw,Plastic straw,157,227
+56,Straw,Paper straw,4,25
+57,Styrofoam piece,Styrofoam piece,112,144
+58,Unlabeled litter,Unlabeled litter,517,796
+59,Cigarette,Cigarette,667,491

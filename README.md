@@ -1,174 +1,136 @@
-# trash-vision-lab
+# Trash Vision Lab
 
-Research pipeline for **multiclass trash detection** with:
-- dataset cleaning + versioning (reproducible dataset ladder)
-- comparing model families (YOLO / DETR / two-stage detectors)
-- hard negative/positive mining + mini active learning loop
-- limited, targeted synthetic data (~10-15% of train) + QA filters
-- final deployment as an inference microservice + Telegram bot
+Four-material litter detection, from dataset reconstruction and model-assisted
+annotation review to an INT8 detector running on a Luckfox Pico Mini A.
 
-## Goal
+The target classes are **plastic, paper, metal and glass**. They are visual
+annotation conventions for this project, not a chemical composition or
+recyclability assessment.
 
-Build a **reproducible, experiment-driven** pipeline that answers:
-1) Which dataset version/filters + which model family gives best real-world performance?
-2) How much do synthetic / catalog anchors help rare classes (glass/other/metal)?
-3) How to reduce false positives for class `other` (hard negatives and thresholding)?
-4) How stable are results on **unseen real backgrounds** (strict hold-out)?
+## What the project demonstrates
 
-**Important rule:** validation/test is **real-only** (hold-out with unseen locations/backgrounds). No leakage across splits by background/location.
+- Reconstructing four-material detection labels from the original 60-category
+  TACO COCO annotations, with documented mapping and geometry limitations.
+- Cleaning and grouping real scenes, adding selected catalog photographs and
+  crops to training, and preserving real-only validation/test splits.
+- Three-fold YOLO26L hard mining followed by manual annotation review.
+- Comparing YOLO26 Nano at 320 px and Medium at 640 px across dataset versions.
+- Exporting Nano to RKNN INT8 and implementing camera capture, preprocessing,
+  zero-copy NPU inference and decoding on a 64 MB RV1103 board.
 
----
+## Dataset versions
 
-## Classes (5)
+| Version | Training recipe | Images | Boxes |
+| --- | --- | ---: | ---: |
+| D0 | Official TACO, original COCO mapped to four materials | 1094 | 2594 |
+| D1 | Official + community TACO, same mapping | 4401 | 8621 |
+| D2 | Curated scenes, 650 catalog photos and 210 crops | 3431 | 5486 |
+| D3 | Same D2 images/splits, reviewed annotations | 3431 | 5807 |
 
-- `plastic`
-- `paper` (paper + cardboard merged)
-- `metal`
-- `glass`
-- `other`
+D3 uses a frozen manifest with image/label hashes and group membership.
+Its validation split has 553 images / 1067 boxes; test has 552 / 1044.
+The 84-image hard subset is part of test, not an additional independent set.
+Catalog and crop images occur only in training. The frozen recipe contains
+no generated synthetic images.
 
-**Other policy (strict):**
-- YES: rags, rubber chunks (not tires), mixed mass, plywood/DSP fragments, torn black bags.
-- NO: shoes, tires, car parts, people/animals/body parts -> those go to **hard-negative** pool (images without boxes).
+Images, private recovery evidence and materialized datasets are excluded from
+Git. Reproduction follows **source pool → manifest → materialized version**;
+access to the corresponding original pools is required.
 
----
+## Verified historical results
 
-## Data sources
+The table below reports **historical validation mAP50–95**, averaged over seeds
+42 and 123, on the original D0/D1/D2 evaluation annotations.
 
-- **TACO official** (hard revision)
-- **TACO community** (major cleanup: removed ~1400 images, removed ~3300 bad "plastic" boxes, fixed many wrong labels/boxes)
-- **Real-life** (own photos; ~600+ images, ~1100 objects, annotated in CVAT)
-- **Catalog anchors** (objects on table/plain background; used selectively with light augment only)
-- **Crops / second-chance** (cropped parts of successful scenes to boost rare classes)
+| Configuration | D0 | D1 | D2 |
+| --- | ---: | ---: | ---: |
+| YOLO26n, 320 px | 15.45% | 21.56% | 28.10% |
+| YOLO26m, 640 px | 23.29% | 27.42% | 46.23% |
 
-Every image has `source={real,catalog,crop,synthetic}` metadata (mandatory for analysis).
+![Historical validation across dataset versions](reports/historical/validation.svg)
 
----
+The [13 preserved training CSVs and their checksums](reports/historical/experiments.json)
+reproduce these figures with `python scripts/summarize_history.py`.
 
-## What's already done
+The deployment candidate is a separate D2 Nano/seed42/WD=0.001 run with
+29.73% historical validation mAP50–95. These are not final test results.
 
-### Global dataset cleanup
-- Removed ultra-small boxes (min ~2% of short side or ~32 px at ~1600 long side)
-- Removed blurry frames (Variance of Laplacian thresholding)
-- Removed duplicates (perceptual hash, distance ~5-8)
-- Fixed/deleted wrong annotations (class mistakes, oversized boxes, bad images)
+**D3 status:** the dataset and two training recipes are frozen. Nano retraining
+is running on an RTX 4060 laptop and Medium on a Vast RTX 3090; both GPU
+smoke checks passed.
+Updated benchmark results will be recorded after training and evaluation on
+the common reviewed holdout. Historical weights and datasets remain intact.
 
-### Annotation workflow (CVAT)
-- Class policy defined + `hardcase_check` tagging
-- Hotkeys / process tuned
-- Source tagging enforced
+Important interpretation limits:
 
-### Current counts (pre-final re-balance)
-Before final balancing, total objects ~6927. Target is to reduce weak plastic by ~500 (to ~2700) and add second-chance + synthetic/catalog to rare classes.
+- D0/D1/D2 compare complete data recipes, including different image membership
+  and counts; their differences do not isolate annotation cleanup alone.
+- D3 keeps D2 training images but updates annotations. Historical D2 best
+  checkpoints were selected on the earlier validation labels, so reevaluation
+  on common labels does not turn this into a perfectly controlled retraining
+  ablation.
+- Nano/Medium also differ in input resolution. Their training wall times on
+  different GPUs are not a deployment speed comparison.
+- TACO Unlabeled litter was excluded from historical D0/D1 target labels,
+  while its pixels remained in the scenes. Composite-material conventions and
+  some community coordinate defects are documented baseline limitations.
+- Historical mining/review used the broader real-image pool. This limits claims
+  of a completely independent retrospective test; see the provenance notes.
 
----
+## Luckfox Pico deployment
 
-## Dataset versions (research ladder)
+The existing D2 Nano export runs on Luckfox Pico Mini A / RV1103 using RKNN
+INT8 and the zero-copy runtime API. A short 30-frame camera benchmark measured
+**66.56 ms per frame (~15 FPS)** for the complete pipeline and about 12.2 MB
+peak process RSS. This is a short measurement, not a sustained throughput claim.
 
-Versions are **manifests**, not copies of data.
+On 32 validation images, the PyTorch/RKNN comparison matched 50 detections
+from 51 PyTorch and 52 RKNN outputs; mean matched-box IoU was 0.812 and mean
+absolute confidence difference was 0.028. This measures export agreement,
+not accuracy against ground truth. These measurements belong to the existing
+D2 export, not the new D3 model.
 
-Example ladder:
-1. `taco_official`
-2. `+ community`
-3. `+ quality filters (blur/tiny/extreme res)`
-4. `+ annotation fixes + bad image deletions`
-5. `+ catalog anchors (light aug only on catalog)`
-6. `dedup + class balance + light aug`
-7. `+ synthetic (targeted, ~10-15% train)`
-8. Hard Neg/Pos mining #1 + mini-AL
-9. Hard Neg/Pos mining #2 + AL loop + small object retarget
-10. Semi-supervised (high threshold pseudo-labels; **no `other`**)
-11. Curriculum training (easy/mid/hard phases)
+The [recovered board runtime and build instructions](docs/luckfox.md) are included.
+The portable build was cross-compiled again; fresh hardware testing requires
+a connected board.
 
-**Validation/test:** always real-only, with strict hold-out (unseen backgrounds).
+## Reproduction and navigation
 
-**Local smoke dataset (not in git):** `sec_chance_v0` is a quick local manifest built from `sec_chance_img/` for smoke runs. The folder is ignored and can be replaced freely.
+Lightweight repository checks use Python 3.12 and PyYAML; GPU training has
+a separate pinned environment:
 
----
-
-## Synthetic data policy (short)
-
-Synthetic is **not the core**, it's a spice:
-- prefer inpainting/placement on **real backgrounds**
-- track `background_id` and never split same background across train/val/test
-- reuse background 2-3 times (max 5 if strongly different)
-- post-QA: blur filter, auto-detect + size filter, pHash anti-dup
-
-Generation is outsourced for now; we integrate results through the same filters + manifests.
-
----
-
-## Repository philosophy
-
-We keep **one true pool** of data and build dataset versions reproducibly.
-
-- `data/pool/`    - single source of truth (images + annotations), NOT in git
-- `data/manifests/` - version definitions (YAML, uses `splits`), in git
-- `data/versions/`  - materialized artifacts per version (split lists, data.yaml, optional symlinks), NOT in git
-
-Training code is model-agnostic: one entrypoint calls model wrappers.
-
----
-
-## Project structure (current)
-
-```
-trash-vision-lab/
-  README.md
-  pyproject.toml
-  configs/                # YAML configs (base + model overrides)
-  data/
-    pool/                 # source of truth (images + labels), NOT in git
-      images/
-      labels/
-    manifests/            # dataset version definitions, in git
-    versions/             # built artifacts per version, NOT in git
-  datasets/
-    build_version.py      # builds version artifacts from manifest
-    yolo_datayaml.py      # generates YOLO data.yaml from version artifacts
-  models/
-    base.py               # Model base + TrainRequest
-    registry.py           # model registry (@register + get)
-    dummy.py              # minimal training stub
-  runners/
-    train.py              # unified CLI entrypoint
-  utils/
-    paths.py
-    seed.py
-    logging.py            # optional: mlflow/wandb
-  scripts/                # QC/metrics/utils
-```
-
----
-
-## How training is called (target UX)
-
-Single command, same interface for all models:
 ```bash
-python -m runners.train   --model yolo_v8m   --version v1   --config configs/base.yaml   --override configs/yolo8m.yaml
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m runners.train --model dummy --version v0
+python -m unittest discover -s tests -v
 ```
 
-Inside each model wrapper we define:
-- which dataset artifacts to use for a version
-- model-specific config
-- outputs (checkpoints, logs, metrics)
-- tracking backend (W&B or MLflow)
+The eight dataset tests also pass on Windows. The same smoke/data checks and
+reconstruction of the historical result tables run in GitHub Actions.
 
-Metrics we track:
-- mAP@0.5 and mAP@0.5:0.95 per-class
-- PR curves, confusion matrix
-- per-source metrics (real/crop/catalog/synth)
-- AP by object size (S/M/L) if supported
-- inference latency + memory (CPU/GPU)
-- threshold calibration per-class (esp. higher threshold for `other`)
+D3 build, pinned training environment and launch commands:
+[docs/d3.md](docs/d3.md). The actual GPU recipe is
+[configs/d3_training.json](configs/d3_training.json); its training environment
+is separate from RKNN export dependencies.
 
-Notes for agents (Codex/Claude Code)
+- [Project history and recovered evidence](docs/project-history.md)
+- [Original TACO, class mapping and known limitations](docs/taco-provenance.md)
+- [D3 dataset and training protocol](docs/d3.md)
+- [Frozen D3 manifest](manifests/d3.json)
+- [Training runner](runners/train_d3.py) and
+  [common-holdout evaluation](runners/evaluate_d3.py)
 
-Do NOT:
-- duplicate dataset files per version (use manifests + splits/symlinks)
-- mix synthetic/catalog into validation/test
-- allow background leakage across splits
+The training and board sources are consolidated here. Historical training CSVs,
+configuration and hash manifests are versioned; original images, credentials
+and large model artifacts remain outside Git. D3 release artifacts and final
+common-holdout results are pending completion of the current training runs.
 
-Do:
-- keep code modular: dataset versioning, model wrappers, unified runner
-- implement minimal end-to-end path first (toy manifest -> version artifacts -> one model train)
+## Upstream projects
+
+[TACO](https://github.com/pedropro/TACO) supplies the original litter dataset
+and COCO annotations. Detection training uses
+[Ultralytics](https://github.com/ultralytics/ultralytics); deployment uses
+[Rockchip RKNN](https://github.com/airockchip/rknn-toolkit2) and
+[opencv-mobile](https://github.com/nihui/opencv-mobile).
