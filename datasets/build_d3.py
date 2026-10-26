@@ -142,7 +142,12 @@ def materialize(manifest, baseline_root, reviewed_root, output):
     output.mkdir(parents=True)
     for row in manifest['images']:
         source = pool_path(reviewed_root, row['reviewed_image'])
-        if file_hash(source) != row['image_sha256']:
+        source_hash = file_hash(source)
+        if source_hash != row['source_sha256']:
+            raise ValueError(f'Reviewed image content changed: {row["id"]}')
+        if source_hash != row['image_sha256']:
+            if baseline_root is None:
+                raise ValueError(f'An intact oriented image is required from --baseline-root: {row["id"]}')
             source = pool_path(baseline_root / 'data/prepared', row['image'])
             if file_hash(source) != row['image_sha256']:
                 raise ValueError(f'No intact oriented image available: {row["id"]}')
@@ -170,20 +175,42 @@ def materialize(manifest, baseline_root, reviewed_root, output):
     write_json(output / 'dataset.json', manifest)
 
 
+def read_frozen_manifest(path):
+    manifest = json.loads(path.read_text())
+    if manifest.get('version') != 'd3' or manifest.get('schema_version') != 1:
+        raise ValueError('Unsupported frozen manifest')
+    if digest({k: v for k, v in manifest.items() if k != 'fingerprint'}) != manifest.get('fingerprint'):
+        raise ValueError('Invalid frozen manifest fingerprint')
+    validate_splits(manifest)
+    return manifest
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--baseline-root', type=Path, required=True)
+    parser.add_argument('--baseline-root', type=Path)
     parser.add_argument('--reviewed-root', type=Path, required=True)
     parser.add_argument('--manifest', type=Path, default=Path('manifests/d3.json'))
     parser.add_argument('--output', type=Path, default=Path('data/versions/d3'))
     parser.add_argument('--plan-only', action='store_true')
+    parser.add_argument('--from-manifest', action='store_true',
+                        help='Materialize the frozen manifest without reconstructing historical D2 labels')
     args = parser.parse_args()
-    result, summary = freeze(args.baseline_root.resolve(), args.reviewed_root.resolve())
-    if args.manifest.exists() and json.loads(args.manifest.read_text()) != result:
-        raise ValueError('Frozen D3 manifest differs; use a new version/path')
-    write_json(args.manifest, result)
+    baseline = args.baseline_root.resolve() if args.baseline_root else None
+    if args.from_manifest:
+        result = read_frozen_manifest(args.manifest)
+        index = {row['id']: row for row in result['images']}
+        summary = {'version': 'd3', 'fingerprint': result['fingerprint'], 'mode': 'frozen_manifest',
+                   'splits': {name: {'images': len(ids), 'boxes': sum(index[i]['bbox_count'] for i in ids)}
+                              for name, ids in result['splits'].items()}}
+    else:
+        if baseline is None:
+            parser.error('--baseline-root is required when freezing a new manifest')
+        result, summary = freeze(baseline, args.reviewed_root.resolve())
+        if args.manifest.exists() and json.loads(args.manifest.read_text()) != result:
+            raise ValueError('Frozen D3 manifest differs; use a new version/path')
+        write_json(args.manifest, result)
     if not args.plan_only:
-        materialize(result, args.baseline_root, args.reviewed_root, args.output.resolve())
+        materialize(result, baseline, args.reviewed_root, args.output.resolve())
         write_json(args.output / 'summary.json', summary)
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 

@@ -1,10 +1,11 @@
 import csv
 import json
 from pathlib import Path
+import shutil
 import tempfile
 import unittest
 
-from datasets.build_d3 import digest, file_hash, freeze, materialize, normalize_labels, validate_splits, write_json
+from datasets.build_d3 import digest, file_hash, freeze, materialize, normalize_labels, read_frozen_manifest, validate_splits, write_json
 from runners.train_d3 import verify_dataset
 
 
@@ -91,6 +92,27 @@ class D3Tests(unittest.TestCase):
         (output / manifest['images'][0]['label']).write_text('')
         with self.assertRaisesRegex(ValueError, 'Dataset content changed'):
             verify_dataset(output, manifest)
+
+    def test_frozen_manifest_rebuild_needs_only_reviewed_pool(self):
+        manifest, _ = freeze(self.baseline, self.review)
+        path = self.root / 'frozen.json'
+        write_json(path, manifest)
+        shutil.rmtree(self.baseline)
+        restored = read_frozen_manifest(path)
+        output = self.root / 'restored'
+        materialize(restored, None, self.review, output)
+        verify_dataset(output, manifest)
+        self.assertEqual(json.loads((output / 'dataset.json').read_text()), manifest)
+        manifest['images'][0]['bbox_count'] += 1
+        write_json(path, manifest)
+        with self.assertRaisesRegex(ValueError, 'fingerprint'):
+            read_frozen_manifest(path)
+
+    def test_frozen_rebuild_rejects_source_mutation_even_with_baseline_copy(self):
+        manifest, _ = freeze(self.baseline, self.review)
+        (self.review / manifest['images'][0]['reviewed_image']).write_bytes(b'changed')
+        with self.assertRaisesRegex(ValueError, 'image content changed'):
+            materialize(manifest, self.baseline, self.review, self.root / 'changed')
 
 
 if __name__ == '__main__':
