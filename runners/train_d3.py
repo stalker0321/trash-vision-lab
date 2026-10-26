@@ -114,6 +114,8 @@ def main():
     if args.resume:
         with (run / 'previous_attempts.jsonl').open('a') as stream:
             stream.write(json.dumps(old) + '\n')
+        info.update(resumed=True, previous_elapsed_seconds=float(old.get('elapsed_seconds', 0)),
+                    previous_attempt_status=old['status'])
     write_json(metadata, info)
     started = time.monotonic()
     try:
@@ -126,7 +128,8 @@ def main():
         info.update(status='interrupted' if isinstance(error, KeyboardInterrupt) else 'failed', error=repr(error))
         raise
     finally:
-        info['elapsed_seconds'] = time.monotonic() - started
+        info['attempt_elapsed_seconds'] = time.monotonic() - started
+        info['elapsed_seconds'] = info.get('previous_elapsed_seconds', 0) + info['attempt_elapsed_seconds']
         write_json(metadata, info)
 
 

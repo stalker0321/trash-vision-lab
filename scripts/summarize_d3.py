@@ -66,6 +66,9 @@ def main():
                           'Hard test is a subset of test, not an independent evaluation.',
                           'The real-image pool was involved in historical mining/review; this is a retrospective holdout.',
                           'Nano uses 320 px and Medium 640 px; this does not isolate architecture alone.']}
+    training_record = args.output / 'training/runs.json'
+    if training_record.exists() and any(r.get('resumed') for r in json.loads(training_record.read_text())):
+        result['caveats'].append('Medium resumed from an optimizer checkpoint after a network interruption; resumed input/augmentation order need not match an uninterrupted run.')
     (args.output / 'summary.json').write_text(json.dumps(result, indent=2) + '\n')
     fields = ['name', 'split', 'imgsz', 'images', 'boxes', 'ap50', 'ap50_95', 'weights_sha256', 'summary_sha256']
     with (args.output / 'metrics.csv').open('w', newline='') as stream:

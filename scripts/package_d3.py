@@ -64,7 +64,8 @@ def main():
         safe_keys = ['model', 'seed', 'dataset_fingerprint', 'pretrained_sha256', 'protocol',
                      'signature', 'status', 'best_sha256', 'gpu', 'python', 'torch',
                      'ultralytics', 'elapsed_seconds']
-        runs.append(dict(name=name, **{key: run[key] for key in safe_keys}))
+        safe_keys += ['resumed', 'previous_elapsed_seconds', 'previous_attempt_status', 'attempt_elapsed_seconds']
+        runs.append(dict(name=name, **{key: run[key] for key in safe_keys if key in run}))
 
     export = read(args.nano_export / 'export.json')
     if (export['status'] != 'complete' or export['weights_sha256'] != runs[0]['best_sha256'] or
@@ -107,6 +108,10 @@ def main():
               'do not describe this artifact. Source images are not included.', '',
               'Repository: https://github.com/stalker0321/trash-vision-lab',
               'Every payload checksum is recorded in artifacts.json.', '']
+    if any(run.get('resumed') for run in runs):
+        lines += ['A training run was resumed after an interruption with optimizer state restored.',
+                  'Recorded elapsed_seconds sums attempts; the CSV time column restarts on resume.',
+                  'A resumed data/augmentation order need not match an uninterrupted run.', '']
     entries['README.md'] = '\n'.join(lines).encode()
     checks = {name: {'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data)}
               for name, data in sorted(entries.items())}
