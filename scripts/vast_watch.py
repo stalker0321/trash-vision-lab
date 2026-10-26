@@ -7,7 +7,7 @@ from pathlib import Path
 import shlex
 import subprocess
 import time
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 
@@ -34,6 +34,15 @@ def verify_results(directory, manifest_path='control/results.json', allowed_pref
         if checksum.hexdigest() != expected:
             raise ValueError(f'Result checksum differs: {relative}')
     return len(manifest['files'])
+
+
+def needs_emergency_stop(error, failures, config, now):
+    if now >= float(config['deadline_unix']):
+        return True
+    guarded_transport = (config.get('remote_deadline_guard_confirmed', False) and
+                         isinstance(error, (URLError, TimeoutError, subprocess.TimeoutExpired,
+                                            subprocess.CalledProcessError)))
+    return failures >= 10 and not guarded_transport
 
 
 def main():
@@ -158,7 +167,7 @@ def main():
             failures += 1
             summary.update(last_error=type(error).__name__, consecutive_errors=failures)
             record()
-            if failures >= 10 or time.time() >= float(config['deadline_unix']):
+            if needs_emergency_stop(error, failures, config, time.time()):
                 try:
                     row = api(f'/instances/{instance_id}/?owner=me', key).get('instances')
                     if row and row.get('label') == config['label']:
