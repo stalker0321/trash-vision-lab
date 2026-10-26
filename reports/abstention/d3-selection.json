@@ -1,0 +1,87 @@
+{
+  "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+  "weights_sha256": "84c56d5a4d5ae10f36a921515f39b388af7d78313e4b6ced2d86425a42e5cbe5",
+  "selected": {
+    "margin": {
+      "method": "margin",
+      "threshold": 0.2,
+      "images": 553,
+      "ground_truth_boxes": 1067,
+      "detections": 1145,
+      "matched_boxes": 743,
+      "unmatched_detections": 402,
+      "named_detections": 980,
+      "unknown_material_detections": 165,
+      "named_matched_boxes": 693,
+      "matched_box_material_coverage": 0.9327052489905787,
+      "named_matched_material_accuracy": 0.6782106782106783,
+      "named_detection_precision": 0.47959183673469385,
+      "correct_labels_deferred": 23,
+      "wrong_labels_deferred": 27,
+      "named_unmatched_detections": 287,
+      "per_true_class": {
+        "plastic": {
+          "matched": 418,
+          "named": 388,
+          "correct_named": 277
+        },
+        "paper": {
+          "matched": 180,
+          "named": 171,
+          "correct_named": 114
+        },
+        "metal": {
+          "matched": 103,
+          "named": 93,
+          "correct_named": 48
+        },
+        "glass": {
+          "matched": 42,
+          "named": 41,
+          "correct_named": 31
+        }
+      }
+    },
+    "confidence": {
+      "method": "confidence",
+      "threshold": 0.35,
+      "images": 553,
+      "ground_truth_boxes": 1067,
+      "detections": 1145,
+      "matched_boxes": 743,
+      "unmatched_detections": 402,
+      "named_detections": 924,
+      "unknown_material_detections": 221,
+      "named_matched_boxes": 678,
+      "matched_box_material_coverage": 0.9125168236877523,
+      "named_matched_material_accuracy": 0.6799410029498525,
+      "named_detection_precision": 0.4989177489177489,
+      "correct_labels_deferred": 32,
+      "wrong_labels_deferred": 33,
+      "named_unmatched_detections": 246,
+      "per_true_class": {
+        "plastic": {
+          "matched": 418,
+          "named": 384,
+          "correct_named": 276
+        },
+        "paper": {
+          "matched": 180,
+          "named": 164,
+          "correct_named": 110
+        },
+        "metal": {
+          "matched": 103,
+          "named": 95,
+          "correct_named": 49
+        },
+        "glass": {
+          "matched": 42,
+          "named": 35,
+          "correct_named": 26
+        }
+      }
+    }
+  },
+  "selection_split": "val"
+}

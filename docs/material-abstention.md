@@ -44,8 +44,8 @@ results and private prediction records. Existing experiments are not overwritten
 
 ## D2 pilot on the reviewed holdout
 
-The historical D2 Nano checkpoint is an initial full-pipeline check. The D3
-repeat is queued after its completed export; no D3 result is claimed yet.
+The historical D2 Nano checkpoint provides an initial full-pipeline check.
+Both D2 and D3 use the same reviewed holdout and fixed selection procedure.
 [Aggregate D2 results](../reports/abstention/d2.json) and the
 [validation selection](../reports/abstention/d2-selection.json) are preserved.
 
@@ -67,11 +67,34 @@ The margin rule improves conditional material accuracy modestly while
 withholding fewer correct names than the selected confidence rule. It does
 not repair the underlying detector or eliminate confidently wrong materials.
 
+## D3 repeat
+
+The completed D3 Nano export was evaluated once using the same procedure.
+[Aggregate D3 results](../reports/abstention/d3.json) and its independently
+locked [validation selection](../reports/abstention/d3-selection.json) are preserved.
+Validation selected the same thresholds, margin 0.20 and confidence 0.35.
+
+| Test result | Always name | Margin ≥0.20 | Confidence ≥0.35 |
+| --- | ---: | ---: | ---: |
+| Matched-box material coverage | 100% | 93.50% | 89.52% |
+| Material accuracy among named matches | 65.78% | 66.52% | 67.11% |
+| Incorrect material names withheld | 0 | 22 | 36 |
+| Correct material names withheld | 0 | 27 | 43 |
+| All boxes labelled unknown | 0 | 158 | 241 |
+
+D3 produces 1147 boxes: 754 matches and 393 unmatched detections. Margin-based
+abstention withholds 49 matched material names, including more correct names
+than incorrect ones. Its conditional accuracy gain is only 0.74 percentage
+points. This is a modest trade-off, not evidence of reliable uncertainty or a
+reason to enable the option by default. It preserves the same 1147 boxes.
+The different match populations also prevent interpreting the D2/D3
+conditional accuracy difference as classification on an identical object set.
+
 ## Limits and deployment status
 
 The host calculation was cross-checked against Ultralytics LetterBox/NMS on
 18 test frames, and aggregate counts and unique ground-truth assignments were
-independently recomputed. The thresholds are still exploratory: one checkpoint,
+independently recomputed. The thresholds are still exploratory: one checkpoint per dataset version,
 a retrospectively reviewed holdout and no uncertainty estimate.
 
 Only four known materials have ground truth. Novel materials and open-set
@@ -89,8 +112,8 @@ suggested class). Boxes and class-wise NMS remain unchanged. Field mode writes
 confidence, margin and threshold; the original `detections.csv` format is used
 when the option is off. Set the value to `0` or leave it unset to disable it.
 
-The value 0.20 is the D2 exploratory example above, not a validated D3 INT8
-operating point. On the 32 stored D2 INT8 tensors, it defers 6 of 52 names while
+The value 0.20 was selected in both FP32 experiments above; it is not a
+validated INT8 operating point. On the 32 stored D2 INT8 tensors, it defers 6 of 52 names while
 preserving every detection. Quantizer, near-tie and disabled-mode host tests
 pass, and the complete runtime cross-compiles. No fresh hardware test has
 been performed and the installed board application has not been changed.
