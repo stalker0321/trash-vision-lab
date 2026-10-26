@@ -16,3 +16,4 @@ deployment/luckfox/build/
 *.onnx
 
 .venv-rknn/
+/dist/
