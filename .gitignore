@@ -11,3 +11,6 @@ runs/
 *.cache
 notes/recovery/
 /runs/
+deployment/luckfox/build/
+*.rknn
+*.onnx

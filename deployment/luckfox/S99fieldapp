@@ -1,0 +1,38 @@
+#!/bin/sh
+# Autonomous field mode: replace the stock rkipc camera app with the
+# trash-detection daemon on boot. Installed as /etc/init.d/S99fieldapp.
+APP=/userdata/trash-yolo26n-int8-320/camera_pipeline
+MODEL=/userdata/trash-yolo26n-int8-320/model.rknn
+OUT=/userdata/field
+LOG=/userdata/field.log
+export LD_LIBRARY_PATH=/oem/usr/lib:/userdata/trash-yolo26n-int8-320
+
+case "$1" in
+	start)
+		i=0
+		while [ $i -lt 50 ]; do
+			mount | grep -q " /userdata " && break
+			i=$((i + 1))
+			sleep 0.2
+		done
+		mkdir -p "$OUT"
+		# Free the CSI camera from the stock application.
+		sh /oem/usr/bin/RkLunch-stop.sh >/dev/null 2>&1
+		# Wait for rkipc to actually exit.
+		i=0
+		while [ $i -lt 30 ]; do
+			pidof rkipc >/dev/null 2>&1 || break
+			i=$((i + 1))
+			sleep 0.5
+		done
+		"$APP" "$MODEL" --field "$OUT" >>"$LOG" 2>&1 &
+		echo "field app started"
+		;;
+	stop)
+		killall camera_pipeline 2>/dev/null
+		echo "field app stopped"
+		;;
+	*)
+		echo "usage: $0 {start|stop}"
+		;;
+esac
