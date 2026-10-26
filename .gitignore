@@ -9,3 +9,5 @@ sec_chance_img/
 runs/
 *.pt
 *.cache
+notes/recovery/
+/runs/
