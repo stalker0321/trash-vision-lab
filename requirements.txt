@@ -1,0 +1,2 @@
+# Lightweight repository smoke checks. GPU training uses its separate lockfile.
+PyYAML==6.0.3
