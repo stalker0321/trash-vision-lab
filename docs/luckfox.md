@@ -91,3 +91,44 @@ The original source hashes are retained in `deployment/luckfox/provenance.json`.
 The current camera runtime adds model-provided quantization and contract checks;
 the decoder has host tests and the complete runtime was cross-compiled.
 No board is currently connected for a fresh hardware run.
+
+## Reproducible Nano export
+
+Use a separate environment: RKNN Toolkit2 2.3.2 requires an older PyTorch
+than the training recipe. The exporter runs on the Linux host CPU.
+
+```bash
+python3.12 -m venv .venv-rknn
+. .venv-rknn/bin/activate
+python -m pip install torch==2.4.0+cpu torchvision==0.19.0+cpu \
+  --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -r configs/requirements-rknn.lock
+python -m pip check
+python -m runners.export_rknn \
+  --weights /path/to/completed-nano/weights/best.pt \
+  --run-metadata /path/to/completed-nano/run.json \
+  --data-root data/versions/d3 --output runs/export/d3-nano
+```
+
+The exporter verifies the completed training record and frozen dataset hashes.
+It copies all 256 real training calibration images into independent, letterboxed
+320×320 PNGs. The source JPEGs and checkpoint are checked again after export.
+Validation/test images are excluded from calibration. The source dataset scanner
+is never invoked, preventing implicit JPEG repair from changing frozen images.
+
+The pinned Ultralytics exporter creates normalized `1×8×2100` ONNX output
+before RKNN INT8 conversion. Eight calibration tensors are compared with the
+same PyTorch inference branch before compiling RKNN. The output directory
+retains the ONNX graph, compiled RKNN, calibration-copy hashes, environment
+and `export.json`. These large/private artifacts stay outside Git.
+
+The portable path was exercised with the known D2 Nano checkpoint and the D3
+calibration membership. Its normalized ONNX maximum absolute error was below
+0.000007 across eight inputs. That check validates the floating-point graph;
+it does not establish INT8 accuracy or board performance. The new letterboxed
+calibration copies also differ from the old export preparation, so the old
+board measurements do not describe this newly compiled artifact.
+
+The [official Ultralytics RKNN integration](https://docs.ultralytics.com/integrations/rockchip-rknn)
+and [Rockchip Toolkit2](https://github.com/airockchip/rknn-toolkit2) describe the
+conversion/runtime boundary. Fresh D3 board validation remains a separate step.

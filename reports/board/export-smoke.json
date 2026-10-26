@@ -1,0 +1,69 @@
+{
+  "weights_sha256": "c38dd733b3ed585b99e325f8e57baf7bb1df3edcb544a66e511026b4ae0459e8",
+  "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+  "target": "rv1103",
+  "imgsz": 320,
+  "quantize": 8,
+  "preprocessing": "OpenCV BGR decode, LetterBox320/114, lossless PNG copies; RKNN RGB / 255",
+  "coordinate_contract": "normalized cxcywh + four sigmoid class scores, 1x8x2100",
+  "hardware_validation": "pending: compiled artifact is not a board accuracy/performance result",
+  "onnx_parity": [
+    {
+      "image": "0000.png",
+      "maximum_absolute_error": 2.086162567138672e-06,
+      "mean_absolute_error": 5.810926495541935e-08
+    },
+    {
+      "image": "0001.png",
+      "maximum_absolute_error": 2.8833746910095215e-06,
+      "mean_absolute_error": 6.302020949533471e-08
+    },
+    {
+      "image": "0002.png",
+      "maximum_absolute_error": 2.3245811462402344e-06,
+      "mean_absolute_error": 6.168808397433168e-08
+    },
+    {
+      "image": "0003.png",
+      "maximum_absolute_error": 6.020069122314453e-06,
+      "mean_absolute_error": 6.80252654206015e-08
+    },
+    {
+      "image": "0004.png",
+      "maximum_absolute_error": 6.973743438720703e-06,
+      "mean_absolute_error": 6.17322726270686e-08
+    },
+    {
+      "image": "0005.png",
+      "maximum_absolute_error": 2.294778823852539e-06,
+      "mean_absolute_error": 6.422268938877096e-08
+    },
+    {
+      "image": "0006.png",
+      "maximum_absolute_error": 2.0563602447509766e-06,
+      "mean_absolute_error": 6.134523289347271e-08
+    },
+    {
+      "image": "0007.png",
+      "maximum_absolute_error": 3.069639205932617e-06,
+      "mean_absolute_error": 6.160311727398948e-08
+    }
+  ],
+  "onnx_sha256": "07d701a44a8c3bced283f3a75948d166a293e3c8a30c75757ec2093a7918d9ed",
+  "status": "complete",
+  "rknn_sha256": "4afd21747a9a1b05cf12631520cc328baa138a89de298556362e18d3fe1f7ac5",
+  "environment": {
+    "torch": "2.4.0+cpu",
+    "torchvision": "0.19.0+cpu",
+    "ultralytics": "8.4.143",
+    "rknn-toolkit2": "2.3.2",
+    "numpy": "1.26.4",
+    "onnx": "1.18.0",
+    "onnxruntime": "1.22.1",
+    "onnxslim": "0.1.96",
+    "opencv-python": "4.11.0.86"
+  },
+  "python": "3.12.14",
+  "calibration_images": 256,
+  "note": "D2 checkpoint export smoke using D3 train calibration membership and letterboxed PNG copies. Different artifact from the historical board-tested export."
+}

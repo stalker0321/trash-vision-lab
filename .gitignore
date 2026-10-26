@@ -14,3 +14,5 @@ notes/recovery/
 deployment/luckfox/build/
 *.rknn
 *.onnx
+
+.venv-rknn/
