@@ -55,11 +55,31 @@ reproduce these figures with `python scripts/summarize_history.py`.
 The deployment candidate is a separate D2 Nano/seed42/WD=0.001 run with
 29.73% historical validation mAP50–95. These are not final test results.
 
-**D3 status:** the dataset and two training recipes are frozen. Nano retraining
-is running on an RTX 4060 laptop and Medium on a Vast RTX 3090; both GPU
-smoke checks passed.
-Updated benchmark results will be recorded after training and evaluation on
-the common reviewed holdout. Historical weights and datasets remain intact.
+## D2 and D3 on the same reviewed holdout
+
+D3 Nano320 and Medium640 each completed 150 epochs, seed 42. The selected
+D2 and D3 checkpoints were evaluated on the same 552 test images / 1044 boxes.
+
+| Configuration | D2 test mAP50–95 | D3 test mAP50–95 | Change (pp) |
+| --- | ---: | ---: | ---: |
+| Nano, 320 px | 30.23% | 28.51% | -1.72 |
+| Medium, 640 px | 45.53% | 47.64% | +2.10 |
+
+![D2 and D3 on common reviewed labels](reports/d3/comparison.svg)
+
+[All 12 evaluations, per-class AP and provenance](reports/d3/README.md) are retained
+along with both complete training CSVs. This is one seed per model; no
+statistical significance or isolated causal effect of annotation review is claimed.
+
+D2 Nano remains the deployment candidate: its common-label validation AP is
+slightly higher, and its existing RKNN artifact has board evidence. The D3
+Nano ONNX/RKNN export is complete and awaits hardware testing. Medium resumed
+from its optimizer checkpoint after a network interruption at epoch 122.
+
+Additional validation-only [resolution probing](reports/resolution/README.md)
+did not improve either Nano checkpoint by increasing inference size to 640.
+The optional [unknown-material display](docs/material-abstention.md) has a
+measured, modest trade-off and remains disabled by default.
 
 Important interpretation limits:
 
@@ -108,8 +128,9 @@ python -m runners.train --model dummy --version v0
 python -m unittest discover -s tests -v
 ```
 
-The eight dataset tests also pass on Windows. The same smoke/data checks and
-reconstruction of the historical result tables run in GitHub Actions.
+The eight dataset tests also pass on Windows. GitHub Actions runs those
+checks, four rental-guard policy tests, the dummy smoke, decoder checks, and
+reconstruction of the historical and common-holdout result tables.
 
 D3 build, pinned training environment and launch commands:
 [docs/d3.md](docs/d3.md). The actual GPU recipe is
@@ -124,10 +145,12 @@ is separate from RKNN export dependencies.
 - [Training runner](runners/train_d3.py) and
   [common-holdout evaluation](runners/evaluate_d3.py)
 
-The training and board sources are consolidated here. Historical training CSVs,
+The training and board sources are consolidated here. Training CSVs,
 configuration and hash manifests are versioned; original images, credentials
-and large model artifacts remain outside Git. D3 release artifacts and final
-common-holdout results are pending completion of the current training runs.
+and large model artifacts remain outside Git. Model archives are distributed
+through [GitHub Releases](https://github.com/stalker0321/trash-vision-lab/releases),
+with both D3 checkpoints, Nano ONNX/RKNN, evaluation evidence and checksums.
+The [packaging command](docs/d3.md#model-artifact-archive) verifies their provenance.
 
 ## Upstream projects
 

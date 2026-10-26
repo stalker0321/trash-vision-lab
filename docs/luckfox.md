@@ -131,6 +131,8 @@ before RKNN INT8 conversion. Eight calibration tensors are compared with the
 same PyTorch inference branch before compiling RKNN. The output directory
 retains the ONNX graph, compiled RKNN, calibration-copy hashes, environment
 and `export.json`. These large/private artifacts stay outside Git.
+This ONNX graph is the RKNN conversion intermediate: consumers must decode
+normalized coordinates, as the supplied material-abstention runner does.
 
 The portable path was exercised with the known D2 Nano checkpoint and the D3
 calibration membership. Its normalized ONNX maximum absolute error was below

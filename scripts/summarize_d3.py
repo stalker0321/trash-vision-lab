@@ -99,7 +99,7 @@ def main():
             values = [f'{100*row["per_class"][name]["ap50_95"]:.2f}' if row['per_class'][name] else '—'
                       for name in manifest['names']]
             lines.append('| ' + row['name'] + ' | ' + ' | '.join(values) + ' |')
-    lines += ['', 'All per-class AP values are retained in [per-class.csv](per-class.csv).', '']
+    lines += ['', 'All per-class AP values are retained in [per-class.csv](https://github.com/stalker0321/trash-vision-lab/blob/main/reports/d3/per-class.csv).', '']
     lines += ['## Interpretation limits', ''] + ['- ' + value for value in result['caveats']]
     (args.output / 'README.md').write_text('\n'.join(lines) + '\n')
     if args.plot:

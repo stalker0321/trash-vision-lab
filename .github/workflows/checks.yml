@@ -27,3 +27,7 @@ jobs:
         run: |
           python scripts/summarize_history.py
           git diff --exit-code -- reports/historical/summary.json reports/historical/validation.csv
+      - name: Reproduce common-holdout tables
+        run: |
+          python scripts/summarize_d3.py --root reports/d3/inputs --output reports/d3
+          git diff --exit-code -- reports/d3/summary.json reports/d3/metrics.csv reports/d3/per-class.csv reports/d3/README.md
