@@ -17,3 +17,7 @@ deployment/luckfox/build/
 
 .venv-rknn/
 /dist/
+/control-night/
+/night-results.tar
+/night-results.tar.sha256
+/night-results.partial

@@ -3,7 +3,8 @@
 This validation-only follow-up examines whether D3's extra small-object labels
 explain the Nano320 regression. It does **not** establish that explanation. No
 labels were removed and no additional training was launched for this audit.
-The completed D3 release and its frozen dataset remain unchanged.
+The completed D3 release and its frozen dataset remain unchanged. After this
+audit, the user authorized the separate [overnight two-experiment queue](../../docs/overnight-nano-experiments.md).
 
 ## Size at the model input
 

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "purpose": "Sequential Nano resolution and train-only tiny-label ablations; no test-set tuning.",
+  "parent_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+  "total_max_hours": 20,
+  "jobs": [
+    {
+      "name": "nano640",
+      "recipe": "configs/overnight-nano640.json",
+      "dataset": "parent",
+      "max_train_hours": 12
+    },
+    {
+      "name": "nano320-drop-lt8",
+      "recipe": "configs/overnight-nano320-drop-lt8.json",
+      "dataset": "variant",
+      "max_train_hours": 6
+    }
+  ],
+  "evaluation_splits": [
+    "val"
+  ],
+  "failure_policy": "Continue the next independent experiment after a stage failure; stop the whole queue on stop-request or global deadline."
+}

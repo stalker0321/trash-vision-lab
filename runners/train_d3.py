@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import time
 
 from datasets.build_d3 import digest, file_hash, pool_path, validate_splits, write_json
@@ -55,8 +56,8 @@ def main():
     manifest = json.loads((data / 'dataset.json').read_text())
     if digest({k: v for k, v in manifest.items() if k != 'fingerprint'}) != manifest['fingerprint']:
         raise ValueError('Dataset manifest fingerprint is invalid')
-    if manifest['fingerprint'] != recipe['dataset_fingerprint'] or manifest['version'] != 'd3':
-        raise ValueError('Dataset differs from the frozen D3 recipe')
+    if manifest['fingerprint'] != recipe['dataset_fingerprint'] or manifest['version'] != recipe['dataset']:
+        raise ValueError('Dataset differs from the frozen recipe')
     validate_splits(manifest)
     weights = (args.weights_root / (args.model + '.pt')).resolve()
     model_recipe = recipe['models'][args.model]
@@ -65,7 +66,10 @@ def main():
     protocol = dict(recipe['protocol'], imgsz=model_recipe['imgsz'])
     if args.smoke:
         protocol.update(epochs=1, workers=0, close_mosaic=0, save_period=1, plots=False)
-    name = f'{args.model}_d3_s{recipe["seed"]}_wd001' + ('_smoke' if args.smoke else '')
+    name = model_recipe.get('run_name', f'{args.model}_d3_s{recipe["seed"]}_wd001')
+    if not re.fullmatch(r'[a-z0-9_-]+', name):
+        raise ValueError('Unsafe run name in recipe')
+    name += '_smoke' if args.smoke else ''
     plan = {'name': name, 'model': args.model, 'seed': recipe['seed'], 'dataset_fingerprint': manifest['fingerprint'],
             'pretrained_sha256': model_recipe['pretrained_sha256'], 'protocol': protocol,
             'comparator': model_recipe['comparator'], 'required_environment': recipe['environment'],
