@@ -11,8 +11,9 @@ recyclability assessment.
 
 - Reconstructing four-material detection labels from the original 60-category
   TACO COCO annotations, with documented mapping and geometry limitations.
-- Cleaning and grouping real scenes, adding selected catalog photographs and
-  crops to training, and preserving real-only validation/test splits.
+- Manual scene selection, bounding-box corrections and class rebalancing,
+  including added real/catalog photographs and crops, with real-only
+  validation/test splits.
 - Three-fold YOLO26L hard mining followed by manual annotation review.
 - Comparing YOLO26 Nano at 320 px and Medium at 640 px across dataset versions.
 - Exporting Nano to RKNN INT8 and implementing camera capture, preprocessing,
@@ -24,8 +25,13 @@ recyclability assessment.
 | --- | --- | ---: | ---: |
 | D0 | Official TACO, original COCO mapped to four materials | 1094 | 2594 |
 | D1 | Official + community TACO, same mapping | 4401 | 8621 |
-| D2 | Curated scenes, 650 catalog photos and 210 crops | 3431 | 5486 |
-| D3 | Same D2 images/splits, reviewed annotations | 3431 | 5807 |
+| D2 | Manual curation: scene filtering, box corrections, class rebalancing, catalog/crops | 3431 | 5486 |
+| D3 | D2 images/splits + annotation review after three-fold YOLO26L hard mining | 3431 | 5807 |
+
+D2 contains the main manual dataset work. D3 uses the subsequent post-mining
+annotation review: model proposals were checked in CVAT, rather than accepted
+as automatic ground truth. The D3 benchmark keeps D2's selected images and
+splits; both training recipes include 650 catalog photographs and 210 crops.
 
 D3 uses a frozen manifest with image/label hashes and group membership.
 Its validation split has 553 images / 1067 boxes; test has 552 / 1044.

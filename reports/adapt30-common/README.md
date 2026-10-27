@@ -5,6 +5,11 @@ new training. Its fixed best checkpoint was selected during the original D2
 run (epoch 3), then compared with its parent using the same reviewed D3 labels
 and the same 320-input evaluation protocol.
 
+Both models were trained on D2, which includes the main manual curation of
+scenes and boxes. The D3 labels used here come from the later post-hard-mining
+annotation review. This changes their evaluation reference, not their training
+data: adapt30 has not been fine-tuned on D3.
+
 | Split | Images / boxes | Parent D2 Nano mAP50–95 | adapt30 mAP50–95 | Change (pp) |
 |---|---:|---:|---:|---:|
 | Validation | 553 / 1067 | 29.48% | 30.38% | +0.90 |

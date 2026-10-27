@@ -9,7 +9,7 @@ a discussion alone is not counted as a completed model run.
 | Stage | Completed work |
 | --- | --- |
 | April–June 2025 | Six-class classifier and Telegram prototype, followed by object detection. Early incorrect polygon/category conversions are excluded from later comparisons. |
-| Dataset curation | TACO official/community, additional real glass images, personal street photographs, catalog photographs and object crops; manual cleanup and grouping of related images. |
+| Main manual curation, represented by D2 | Scene filtering, bounding-box corrections, class rebalancing, additional real glass/personal photographs, catalog photographs and object crops; grouping of related images. |
 | March 2026 hard mining | Three YOLO26L models, 120 epochs at 640 px, with each of 3683 real images held out in exactly one fold. Catalog/crop images stayed in training. |
 | April 2026 review | Model proposals were reviewed in CVAT. The retained reviewed pool has 5464 images and 8881 boxes, versus 8387 boxes in the earlier label snapshot. |
 | September 2026 benchmark | Nano320 and Medium640 trained on D0/D1/D2 with seeds 42 and 123, plus separately identified follow-up runs. |
@@ -27,6 +27,20 @@ identified-parent crops; neither appears in validation/test. No generated
 synthetic images are included in that frozen recipe.
 
 ## Hard mining and manual review
+
+The real-image pool was divided into three parts, A, B and C. Each YOLO26L
+model trained on two parts and proposed annotations for the unseen third:
+
+| Mining model | Real-image training folds | Prediction/review fold |
+|---|---|---|
+| First | A + B | C |
+| Second | B + C | A |
+| Third | A + C | B |
+
+Thus every real image receives predictions from a model that did not train on
+that image. Catalog/crop images are auxiliary training data, outside these
+real-image prediction folds. This is out-of-fold proposal generation; the
+later manual review determines the retained annotation snapshot.
 
 The three real-image validation folds contain 1228, 1228 and 1227 images.
 This was a review-selection workflow without an independent test set.
@@ -51,6 +65,13 @@ that historical selection step. Rebuilding D3 from the frozen manifest does
 not require CVAT.
 
 ## Why D3 exists
+
+D2 represents the main manual dataset curation. D3 represents the subsequent
+post-mining annotation review, applied to the same selected images and splits.
+In the recovered April 22 user report, completion of hard-mining review is
+explicitly tied to `trash_dataset_4_class_hm_reviewed_v1`: the old and reviewed
+pools both contain 5464 images, with 8387 and 8881 boxes respectively. This
+source snapshot predates the October naming/freezing of the D3 benchmark.
 
 The audit found that the September benchmark used the earlier label snapshot,
 although the later reviewed pool already existed. The retained evidence does
