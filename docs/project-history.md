@@ -15,6 +15,7 @@ a discussion alone is not counted as a completed model run.
 | September 2026 benchmark | Nano320 and Medium640 trained on D0/D1/D2 with seeds 42 and 123, plus separately identified follow-up runs. |
 | September 2026 deployment | D2 Nano exported to RKNN INT8; camera/NPU pipeline, button/LED field capture, startup and recovery of saved-photo counters on Luckfox Pico Mini A. |
 | October 2026 D3 | Same selected D2 images and splits, final reviewed annotations, reproducible manifest, new Nano/Medium training and a fixed common-holdout evaluation queue. |
+| October 2026 Nano follow-ups | Full Nano640 training and Nano320 with tiny train labels omitted; validation of both and a 640-trained checkpoint evaluated at 320. |
 
 The source group named “my_photos” includes 597 personal photographs plus
 27 images from dataset_ninja_glass and 41 from small_glass_dataset.
@@ -72,6 +73,11 @@ annotations. Historical datasets and checkpoints remain unchanged;
   150-epoch CSV and checksum.
 - [Recomputed historical results](../reports/historical/summary.json) and
   [plot](../reports/historical/validation.svg).
+- [Historical follow-ups](../reports/historical-followups/README.md): weight
+  decay, real-scene fine-tuning, a matched control/distillation pair and 256-input
+  adaptation, with completed run records and full training curves.
+- [D3 Nano resolution and tiny-label results](../reports/nano-ablations/README.md),
+  including the negative results and the limits of each comparison.
 - [Original TACO snapshot and class mapping](taco-provenance.md).
 - [D3 training and evaluation protocol](d3.md).
 - [Recovered Luckfox runtime and measurements](luckfox.md).
@@ -105,3 +111,16 @@ clean ground-truth benchmark. No accuracy improvement is claimed from the
 discussed blur/area heuristics or the interrupted Medium640 field comparison.
 
 Raw images, private conversation exports and recovery logs remain outside Git.
+
+## Earlier attempts and unexecuted plans
+
+The private conversation recovery also records a catalog-only curriculum
+warm-up followed by mixed-data training, alongside changes from five/six target
+classes to four. The precise checkpoint/configuration and final third curriculum
+stage were not established. These attempts belong to the development history;
+their chat/screenshot metrics are not added to the reproducible benchmark tables.
+
+The archived September plan also proposed Medium D0/D1 retraining on historical
+`without_small_obj` variants. The inspected queue/run records do not establish
+that these jobs ran. That proposal is distinct from the completed October D3
+Nano320 experiment with a precisely defined 8px threshold.

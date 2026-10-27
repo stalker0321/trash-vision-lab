@@ -1,0 +1,28 @@
+{
+  "metric_policy": "Fixed common D3 validation of best checkpoints. Baseline is ../d3/inputs/nano_d3_val/summary.json. No new test evaluation.",
+  "runs": [
+    {
+      "name": "yolo26n_d3_640_s42_wd001",
+      "best_sha256": "12c999957eafd728a517b2eb40bd56ceaba534e14538fd24df341240c7ba7db4",
+      "epochs": 150,
+      "run_record": "training/yolo26n_d3_640_s42_wd001/run.json",
+      "curve": "training/yolo26n_d3_640_s42_wd001/results.csv"
+    },
+    {
+      "name": "yolo26n_d3_drop_lt8_s42_wd001",
+      "best_sha256": "6f9c4c61a89e85e83a4828da0fd7ddc6ab360e16312cb6f600c632454824b037",
+      "epochs": 150,
+      "run_record": "training/yolo26n_d3_drop_lt8_s42_wd001/run.json",
+      "curve": "training/yolo26n_d3_drop_lt8_s42_wd001/results.csv"
+    }
+  ],
+  "files": {
+    "evaluations/nano320_drop_lt8_val/summary.json": "fdbc746d16a65a61ff802d5305500e5ecd23a1af8e5c96298f553bd995b7c2d1",
+    "evaluations/nano640_at320_val/summary.json": "d1b68e6340a7de7e51ce3d73681ec527dbd84f506077ad0963ee80b6dc0466d6",
+    "evaluations/nano640_val/summary.json": "24a17ba0a2431963454b8fdb2490aada56752da7d4f3731a279b892b77faeac8",
+    "training/yolo26n_d3_640_s42_wd001/results.csv": "9655673969ef89b72d4356b3095d5e2bfe27dfb237e9d328f93164255043b919",
+    "training/yolo26n_d3_640_s42_wd001/run.json": "130444ab3da5a5c58a23b5685484ac2c4df5a3cef6fd56cc00e06770a51155c6",
+    "training/yolo26n_d3_drop_lt8_s42_wd001/results.csv": "21dce92998dd484cc628a0e0b395d929cef6130915136189fb3a9f413e89255a",
+    "training/yolo26n_d3_drop_lt8_s42_wd001/run.json": "5e8a535d97b5a97abee003b5add1e69ccefff3b73d0d6057233017cb2f9ee979"
+  }
+}

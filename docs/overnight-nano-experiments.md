@@ -4,6 +4,10 @@ The user authorized this fixed two-experiment queue on the MSI RTX 4060 Laptop
 GPU on 2026-10-27. It runs independently of the SSH connection. These are
 follow-up experiments, separate from the completed `d3-seed42` release.
 
+Both runs and their validation completed successfully. The
+[results and retained evidence](../reports/nano-ablations/README.md) also include
+the subsequent check of the 640-trained checkpoint at a 320 inference input.
+
 | Order | Experiment | Image size | Train boxes | Recipe |
 |---|---|---:|---:|---|
 | 1 | Full D3, higher training resolution | 640 | 5807 | [Nano640](../configs/overnight-nano640.json) |

@@ -1,0 +1,116 @@
+{
+  "metric_policy": "Historical validation: maximum recorded epoch mAP50-95(B), not a new D3 evaluation. Separate preflight evaluations are identified explicitly.",
+  "dataset_fingerprint": "f85f531d46e8ad1e0630558c69b031463c6422575e0c58e577d955d51633a55f",
+  "validation_images": 553,
+  "validation_boxes": 961,
+  "runs": [
+    {
+      "name": "yolo26n_d2_s42",
+      "epochs": 150,
+      "best_epoch": 111,
+      "best_recorded_val_map50_95": 0.28262,
+      "last_recorded_val_map50_95": 0.27107,
+      "best_sha256": "0456524117f4a10f003f181e5d0cc4cb1fbeece4102d2a71c75c009ae47aadc0",
+      "checkpoint_reverified_during_recovery": false,
+      "run_record": "training/yolo26n_d2_s42/run.json",
+      "curve": "training/yolo26n_d2_s42/results.csv"
+    },
+    {
+      "name": "yolo26n_d2_s42_wd001",
+      "epochs": 150,
+      "best_epoch": 84,
+      "best_recorded_val_map50_95": 0.2973,
+      "last_recorded_val_map50_95": 0.28049,
+      "best_sha256": "c38dd733b3ed585b99e325f8e57baf7bb1df3edcb544a66e511026b4ae0459e8",
+      "checkpoint_reverified_during_recovery": true,
+      "run_record": "training/yolo26n_d2_s42_wd001/run.json",
+      "curve": "training/yolo26n_d2_s42_wd001/results.csv"
+    },
+    {
+      "name": "yolo26n_d2_s42_street20",
+      "epochs": 20,
+      "best_epoch": 18,
+      "best_recorded_val_map50_95": 0.27023,
+      "last_recorded_val_map50_95": 0.26848,
+      "best_sha256": "56a6359f720d7db08f50e8032f7cccc29cebffe4e1145aa739a0f6e05fbd5554",
+      "checkpoint_reverified_during_recovery": true,
+      "run_record": "training/yolo26n_d2_s42_street20/run.json",
+      "curve": "training/yolo26n_d2_s42_street20/results.csv"
+    },
+    {
+      "name": "yolo26n_d2_s42_adapt30",
+      "epochs": 30,
+      "best_epoch": 3,
+      "best_recorded_val_map50_95": 0.30393,
+      "last_recorded_val_map50_95": 0.28535,
+      "best_sha256": "c0b71a7613d7d20c97ac17597d126f91e7722d68dfdc45098e17646bd6f2bf89",
+      "checkpoint_reverified_during_recovery": true,
+      "run_record": "training/yolo26n_d2_s42_adapt30/run.json",
+      "curve": "training/yolo26n_d2_s42_adapt30/results.csv"
+    },
+    {
+      "name": "yolo26n_d2_s42_kd30",
+      "epochs": 30,
+      "best_epoch": 1,
+      "best_recorded_val_map50_95": 0.2962,
+      "last_recorded_val_map50_95": 0.27993,
+      "best_sha256": "e9a69b349c7a9adbef28fafa97727f183079b51cfe6d7123e62ffa7c6a9120d1",
+      "checkpoint_reverified_during_recovery": true,
+      "run_record": "training/yolo26n_d2_s42_kd30/run.json",
+      "curve": "training/yolo26n_d2_s42_kd30/results.csv"
+    },
+    {
+      "name": "yolo26n_d2_s42_lowres30",
+      "epochs": 30,
+      "best_epoch": 2,
+      "best_recorded_val_map50_95": 0.25632,
+      "last_recorded_val_map50_95": 0.24198,
+      "best_sha256": "c13a87f36ac207d38c5ca3c08360c9ed8d5e5dd5d2592401c2f79240fa26bd28",
+      "checkpoint_reverified_during_recovery": true,
+      "run_record": "training/yolo26n_d2_s42_lowres30/run.json",
+      "curve": "training/yolo26n_d2_s42_lowres30/results.csv"
+    },
+    {
+      "name": "yolo26m_d2_s42",
+      "epochs": 150,
+      "best_epoch": 82,
+      "best_recorded_val_map50_95": 0.44798,
+      "last_recorded_val_map50_95": 0.43879,
+      "best_sha256": "e9243d5ae766640e1f8c20bd4fc0f0f9cf50b5033dd0b3e1630243a1a94308a1",
+      "checkpoint_reverified_during_recovery": true,
+      "run_record": "training/yolo26m_d2_s42/run.json",
+      "curve": "training/yolo26m_d2_s42/results.csv"
+    },
+    {
+      "name": "yolo26m_d2_s42_wd001",
+      "epochs": 150,
+      "best_epoch": 120,
+      "best_recorded_val_map50_95": 0.46668,
+      "last_recorded_val_map50_95": 0.45763,
+      "best_sha256": "fd56d240009563c33e15571db1b0270e32aee13fde68638bbe1c7abeba04b79c",
+      "checkpoint_reverified_during_recovery": true,
+      "run_record": "training/yolo26m_d2_s42_wd001/run.json",
+      "curve": "training/yolo26m_d2_s42_wd001/results.csv"
+    }
+  ],
+  "files": {
+    "evaluations/parent_n256/summary.json": "c12bf5c9fee337e69e3620eb3c98e2e4158618f29cc599a2c0f227cd036edfc5",
+    "evaluations/teacher_m320/summary.json": "92cdeb4e2c6dc8971a456f5003b03eec62ce5efd54e4ff305c5856476204044e",
+    "training/yolo26n_d2_s42/results.csv": "6d206d496a9654a2140a5867358680ec7c3bd059c05a383a29f9a4670c8ffe09",
+    "training/yolo26n_d2_s42/run.json": "e18ad0ad5b9121aedaa81fa40ef4fe270fedc406d69c475a66ee46350e5ec494",
+    "training/yolo26n_d2_s42_adapt30/results.csv": "2982332032bbc16f3a4ce5d0836e5b224d5d6f6a329653ef6aa8b652da6e3876",
+    "training/yolo26n_d2_s42_adapt30/run.json": "e1529a60459f1f2082a1819a481076aae66f9de9035cac71c11f3d3ef9e03fd3",
+    "training/yolo26n_d2_s42_kd30/results.csv": "fb17d453525dab98db2106035deba0c8ac92531f045a2c1c0097429313d27685",
+    "training/yolo26n_d2_s42_kd30/run.json": "58520efc289f2289767350574d448e68802c2c4f34d4b2e373acf77ca1bb922c",
+    "training/yolo26n_d2_s42_lowres30/results.csv": "bd2c7a00fea09e418f8de0f7ff578afec44576aa58f70752d8b0693ae5479db6",
+    "training/yolo26n_d2_s42_lowres30/run.json": "45e61730f24e6f458d0d2eb97d2a2343e24560fee87cf0c2460591da96416582",
+    "training/yolo26n_d2_s42_street20/results.csv": "313ee3f0785ccd40a70e121b5c1233da4f2e15bad15700417cc91d706f7ee26f",
+    "training/yolo26n_d2_s42_street20/run.json": "5d1e678c6503fdc1f773b023fe63a7fc773d79b2f1e2a069dbacb098e2e9ffd4",
+    "training/yolo26n_d2_s42_wd001/results.csv": "8a05a8559872944dfa277298af214840ae0f7befddc3ac6ddc9f790a99bc0d77",
+    "training/yolo26n_d2_s42_wd001/run.json": "8527f627466f19c0bf81ef5955f7317aa3e89af865a9eb8f8f6cbdc93a37d62c",
+    "training/yolo26m_d2_s42/run.json": "13cd33a525c0693246b81facd9946fc2e760ed14d0e0d42d482e6c277a8315b4",
+    "training/yolo26m_d2_s42/results.csv": "1295c17d1eb7d70265065cdbe45fd5c9ab21b3374fe8716824d3e0df8c4f5553",
+    "training/yolo26m_d2_s42_wd001/run.json": "ecd2de57d1f4bc372cd50526963f7565b2d8397c49eda5536d212a84adb469c6",
+    "training/yolo26m_d2_s42_wd001/results.csv": "59501bb7856491edc68848e936d4bcac228c0873f6d322063b2df605077d7be7"
+  }
+}

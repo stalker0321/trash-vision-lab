@@ -55,6 +55,11 @@ reproduce these figures with `python scripts/summarize_history.py`.
 The deployment candidate is a separate D2 Nano/seed42/WD=0.001 run with
 29.73% historical validation mAP50–95. These are not final test results.
 
+[Recovered follow-up experiments](reports/historical-followups/README.md) cover
+regularization, real-scene fine-tuning, Medium-to-Nano distillation with a matched
+control, and adaptation to 256 px. Their complete curves include negative
+results; these older-label scores remain separate from the reviewed D3 results.
+
 ## D2 and D3 on the same reviewed holdout
 
 D3 Nano320 and Medium640 each completed 150 epochs, seed 42. The selected
@@ -81,6 +86,11 @@ did not improve either Nano checkpoint by increasing inference size to 640.
 A [size-group diagnostic](reports/object-sizes/README.md) finds higher Nano D3
 recall at a fixed confidence threshold alongside more false positives; it does
 not establish that small training objects are invisible or should be removed.
+The subsequent [training experiments](reports/nano-ablations/README.md) found
+28.87% validation AP after omitting tiny train labels, versus 29.14% for D3
+Nano320. Nano trained/evaluated at 640 reached 41.97%, but the same checkpoint
+evaluated at 320 reached 27.42%. These single-seed results do not support a
+replacement for the current Pico320 candidate.
 The optional [unknown-material display](docs/material-abstention.md) has a
 measured, modest trade-off and remains disabled by default.
 
