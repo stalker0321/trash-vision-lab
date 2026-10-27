@@ -1,0 +1,69 @@
+{
+  "weights_name": "best.pt",
+  "weights_sha256": "c0b71a7613d7d20c97ac17597d126f91e7722d68dfdc45098e17646bd6f2bf89",
+  "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+  "split": "hard_test",
+  "images": 84,
+  "boxes": 359,
+  "protocol": {
+    "imgsz": 320,
+    "batch": 8,
+    "workers": 0,
+    "conf": 0.001,
+    "iou": 0.7,
+    "max_det": 300,
+    "half": false,
+    "augment": false
+  },
+  "class_names": [
+    "plastic",
+    "paper",
+    "metal",
+    "glass"
+  ],
+  "metrics": {
+    "metrics/precision(B)": 0.39527494673480196,
+    "metrics/recall(B)": 0.3308908304623461,
+    "metrics/mAP50(B)": 0.3161032302835386,
+    "metrics/mAP50-95(B)": 0.19319010474952164,
+    "fitness": 0.19319010474952164
+  },
+  "per_class": {
+    "plastic": {
+      "precision": 0.5492871015595073,
+      "recall": 0.42473118279569894,
+      "ap50": 0.4437655190039667,
+      "ap50_95": 0.25979961947958125
+    },
+    "paper": {
+      "precision": 0.33906504613114025,
+      "recall": 0.35597499619654255,
+      "ap50": 0.2865679717257328,
+      "ap50_95": 0.19515620707954415
+    },
+    "metal": {
+      "precision": 0.32238711616727195,
+      "recall": 0.34285714285714286,
+      "ap50": 0.3011610709715784,
+      "ap50_95": 0.2044715601232383
+    },
+    "glass": {
+      "precision": 0.37036052308128825,
+      "recall": 0.2,
+      "ap50": 0.2329183594328766,
+      "ap50_95": 0.11333303231572293
+    }
+  },
+  "speed_ms": {
+    "preprocess": 0.1236154757429003,
+    "inference": 3.0449976198031523,
+    "loss": 0.000557143634761728,
+    "postprocess": 0.6432940482184113
+  },
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "python": "3.12.15",
+  "torch": "2.8.0+cu128",
+  "ultralytics": "8.4.143",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "note": "Speed is validator timing, not a controlled deployment benchmark. Hard test is a subset of test."
+}

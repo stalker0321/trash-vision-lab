@@ -1,0 +1,44 @@
+{
+  "weights_sha256": "c0b71a7613d7d20c97ac17597d126f91e7722d68dfdc45098e17646bd6f2bf89",
+  "dataset_fingerprint": "1d6c21a538f7eee295b8903821b05925dfbebeba9ded04aadd166e80c96536bc",
+  "selection": "Fixed historical best checkpoint; reviewed validation checked before test/hard-test. No new training or threshold tuning.",
+  "comparison": [
+    {
+      "split": "val",
+      "adapt30_map50_95": 0.3037707150774723,
+      "parent_map50_95": 0.294751267643506,
+      "change_pp": 0.9019447433966266
+    },
+    {
+      "split": "test",
+      "adapt30_map50_95": 0.30928258932592523,
+      "parent_map50_95": 0.3023046428190168,
+      "change_pp": 0.6977946506908417
+    },
+    {
+      "split": "hard_test",
+      "adapt30_map50_95": 0.19319010474952164,
+      "parent_map50_95": 0.18768275957730554,
+      "change_pp": 0.5507345172216099
+    }
+  ],
+  "files": {
+    "val/summary.json": "2f858b81cd0a00c5aee8da00af2e603ab9207acc6ea43e063888cdfca7784ce8",
+    "test/summary.json": "653257de731966cc7eaae772fadd6562666f23548d54893185c05a8bd9df0eb7",
+    "hard_test/summary.json": "9231116869a6947eb54315444ab4e821300a12f0c69a2803cbdd77b30f6c668d"
+  },
+  "parent_references": {
+    "val": {
+      "summary": "../d3/inputs/nano_d2_val/summary.json",
+      "sha256": "e659c639bce02e6d740d72746e9fbc685e718202a78923f846b66ba3977cd105"
+    },
+    "test": {
+      "summary": "../d3/inputs/nano_d2_test/summary.json",
+      "sha256": "d435f37bcade2a2991fd105836970706dfbd152f1b6b1e828d19e686d43d45c9"
+    },
+    "hard_test": {
+      "summary": "../d3/inputs/nano_d2_hard_test/summary.json",
+      "sha256": "8d430dbe75e330ef1ebe0dd368061fa5be35175ea60e545c9ec52f10ebeeb9b6"
+    }
+  }
+}

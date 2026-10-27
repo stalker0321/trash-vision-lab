@@ -57,9 +57,12 @@ CSV files, rather than reporting only a successful-looking intermediate value.
   statistical claim or on-board speed gain is established here.
 
 The historical `adapt30` control has a higher recorded validation peak than
-the selected deployment model. It has not been reevaluated on the reviewed
-holdout or validated through RKNN/on-board testing; its historical peak alone
-does not establish a replacement deployment model.
+the selected deployment model. A subsequent
+[common-label evaluation](../adapt30-common/README.md) found 30.38% validation
+and 30.93% test AP, versus 29.48% / 30.23% for its parent. Those are new reviewed-label
+evaluations, separate from the historical table above. RKNN/on-board testing of
+adapt30 is still pending; its historical peak alone did not establish a
+replacement deployment model.
 
 ## Preserved evidence and limits
 

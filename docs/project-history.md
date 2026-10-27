@@ -78,6 +78,8 @@ annotations. Historical datasets and checkpoints remain unchanged;
   adaptation, with completed run records and full training curves.
 - [D3 Nano resolution and tiny-label results](../reports/nano-ablations/README.md),
   including the negative results and the limits of each comparison.
+- [Recovered adapt30 on common reviewed validation/test](../reports/adapt30-common/README.md),
+  evaluated as a fixed saved checkpoint without additional training.
 - [Original TACO snapshot and class mapping](taco-provenance.md).
 - [D3 training and evaluation protocol](d3.md).
 - [Recovered Luckfox runtime and measurements](luckfox.md).

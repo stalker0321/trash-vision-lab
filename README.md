@@ -81,6 +81,11 @@ slightly higher, and its existing RKNN artifact has board evidence. The D3
 Nano ONNX/RKNN export is complete and awaits hardware testing. Medium resumed
 from its optimizer checkpoint after a network interruption at epoch 122.
 
+A recovered [D2 Nano control fine-tune, adapt30](reports/adapt30-common/README.md),
+subsequently reached 30.93% on the same reviewed test, versus its parent's 30.23%,
+without new training. It is a candidate for export/device verification; it has
+not replaced the existing board-tested RKNN artifact.
+
 Additional validation-only [resolution probing](reports/resolution/README.md)
 did not improve either Nano checkpoint by increasing inference size to 640.
 A [size-group diagnostic](reports/object-sizes/README.md) finds higher Nano D3
