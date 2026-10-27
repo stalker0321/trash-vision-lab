@@ -1,38 +1,38 @@
-"""YOLOv8m wrapper."""
+"""RT-DETRv2-m wrapper."""
 
 from __future__ import annotations
 
 from typing import Any, Dict
 
-from datasets.yolo_datayaml import build_data_yaml
+from legacy.prototype.datasets.yolo_datayaml import build_data_yaml
 from .base import Model, TrainRequest
 from .registry import register
 
 
-@register("yolo_v8m")
-class YoloV8m(Model):
+@register("rtdetrv2_m")
+class RTDETRv2M(Model):
     def train(self, req: TrainRequest) -> None:
         try:
-            from ultralytics import YOLO  # type: ignore
+            from ultralytics import RTDETR  # type: ignore
         except Exception as exc:  # pragma: no cover - environment dependent
             raise SystemExit("Ultralytics not installed. Run: pip install ultralytics") from exc
 
         data_yaml = build_data_yaml(req.version)
 
         cfg: Dict[str, Any] = req.config or {}
-        yolo_cfg = cfg.get("yolo", {}) if isinstance(cfg.get("yolo"), dict) else {}
+        rtdetr_cfg = cfg.get("rtdetr", {}) if isinstance(cfg.get("rtdetr"), dict) else {}
 
-        weights = yolo_cfg.get("weights", "yolov8m.pt")
-        imgsz = yolo_cfg.get("imgsz", 640)
-        batch = yolo_cfg.get("batch", 8)
-        epochs = yolo_cfg.get("epochs", 1)
-        device = yolo_cfg.get("device", None)
-        project = yolo_cfg.get("project", "runs/yolo")
-        name = yolo_cfg.get("name", f"{self.name}-{req.version}")
-        cache = yolo_cfg.get("cache", False)
-        workers = yolo_cfg.get("workers", None)
+        weights = rtdetr_cfg.get("weights", "rtdetrv2-m.pt")
+        imgsz = rtdetr_cfg.get("imgsz", 640)
+        batch = rtdetr_cfg.get("batch", 8)
+        epochs = rtdetr_cfg.get("epochs", 1)
+        device = rtdetr_cfg.get("device", None)
+        project = rtdetr_cfg.get("project", "runs/rtdetr")
+        name = rtdetr_cfg.get("name", f"{self.name}-{req.version}")
+        cache = rtdetr_cfg.get("cache", False)
+        workers = rtdetr_cfg.get("workers", None)
 
-        model = YOLO(weights)
+        model = RTDETR(weights)
 
         train_args: Dict[str, Any] = {
             "data": str(data_yaml),

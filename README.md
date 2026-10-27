@@ -123,6 +123,9 @@ a connected board.
 Lightweight repository checks use Python 3.12 and PyYAML; GPU training has
 a separate pinned environment:
 
+On Debian/Ubuntu, install the matching `python3.12-venv` OS package if Python
+reports that `ensurepip` is unavailable, or use a managed Python 3.12.
+
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate
@@ -131,9 +134,10 @@ python -m runners.train --model dummy --version v0
 python -m unittest discover -s tests -v
 ```
 
-The eight dataset tests also pass on Windows. GitHub Actions runs those
-checks, four rental-guard policy tests, the dummy smoke, decoder checks, and
-reconstruction of the historical and common-holdout result tables.
+The dummy command is a lightweight configuration smoke, not detector training.
+GitHub Actions runs the Python tests, this smoke, host decoder checks, and exact
+reconstruction of the historical and common-holdout result tables. Dataset
+checks have also passed on Windows; GPU and board checks are separate evidence.
 
 D3 build, pinned training environment and launch commands:
 [docs/d3.md](docs/d3.md). The actual GPU recipe is
@@ -141,6 +145,7 @@ D3 build, pinned training environment and launch commands:
 is separate from RKNN export dependencies.
 
 - [Project history and recovered evidence](docs/project-history.md)
+- [Repository structure and current entry points](docs/repository-map.md)
 - [Original TACO, class mapping and known limitations](docs/taco-provenance.md)
 - [D3 dataset and training protocol](docs/d3.md)
 - [Experimental unknown-material display and measured trade-off](docs/material-abstention.md)
