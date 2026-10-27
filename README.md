@@ -78,6 +78,9 @@ from its optimizer checkpoint after a network interruption at epoch 122.
 
 Additional validation-only [resolution probing](reports/resolution/README.md)
 did not improve either Nano checkpoint by increasing inference size to 640.
+A [size-group diagnostic](reports/object-sizes/README.md) finds higher Nano D3
+recall at a fixed confidence threshold alongside more false positives; it does
+not establish that small training objects are invisible or should be removed.
 The optional [unknown-material display](docs/material-abstention.md) has a
 measured, modest trade-off and remains disabled by default.
 
