@@ -21,3 +21,4 @@ deployment/luckfox/build/
 /night-results.tar
 /night-results.tar.sha256
 /night-results.partial
+/storage/
